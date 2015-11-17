@@ -1,0 +1,17 @@
+! ============ urxvtsection
+
+URxvt.perl-ext-common: defaults,font-size,tabbed
+
+! Background color
+URxvt*background: black
+! Font color
+URxvt*foreground: green3
+
+URxvt.cursorBlink:true
+URxvt.scrollBar:false
+
+! Font change size
+URxvt.font: xft:Terminus:pixelsize=12
+URxvt.keysym.C-0x2b:     perl:font-size:increase
+URxvt.keysym.C-0x2d:     perl:font-size:decrease
+URxvt.font-size.step: 2
