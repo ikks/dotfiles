@@ -1,0 +1,21 @@
+# For the benefit of emacs users: -*- shell-script -*-
+# https://wiki.archlinux.org/index.php/Xbindkeys
+###########################
+# xbindkeys configuration #
+###########################
+
+# Increase volume
+"pactl -- set-sink-volume 0 +5%"
+    XF86AudioRaiseVolume
+
+# Decrease volume
+"pactl -- set-sink-volume 0 -5%"
+    XF86AudioLowerVolume
+
+# Mute Volume
+"pactl set-sink-mute 0 toggle"
+    XF86AudioMute
+
+##################################
+# End of xbindkeys configuration #
+##################################
