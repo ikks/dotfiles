@@ -5,6 +5,12 @@ Those are my dot files
 
 urxvt with tab and font change on the fly
 
+You need to install some goodies
+
+```
+apt-get install acpi rxvt-unicode xfonts-terminus gawk
+```
+
 ## emacs
 
 Added melpa and have classic as default theme
@@ -13,3 +19,9 @@ Added melpa and have classic as default theme
 
 Let's make sure we map some keys, like volume and mute
  
+You need to install some goodies
+
+```
+apt-get install xbindkeys pulseaudio-utils
+```
+
