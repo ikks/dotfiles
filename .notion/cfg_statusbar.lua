@@ -4,7 +4,7 @@ mod_statusbar.create{
     fullsize=false,
     systray=true,
 
-    template="[ %date || load: %load || %battery%% ] %filler%systray",
+    template="[ %date || load: %load || %battery%% || %wireless ] %filler%systray",
 }
 
 
@@ -25,6 +25,12 @@ mod_statusbar.launch_statusd{
     -- Make sure you have ~/.notion/statusd_battery.lua
     battery={
         program = "acpi | gawk -F, '{print $2}' | sed 's/%//g'",
+        retry_delay = 5 * 1000,
+    },
+
+    -- Make sure you have ~/.notion/statusd_wireless.lua
+    wireless={
+        program = "ip a | grep wlp2s0 | grep \"state UP\" >> /dev/null && echo Y || echo X",
         retry_delay = 5 * 1000,
     },
 }
