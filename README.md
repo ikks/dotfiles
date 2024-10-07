@@ -1,5 +1,6 @@
 # dotfiles
-Those are my dot files
+Those are my dot files, feel free to copy, and do as you please with them, no
+warranties on the things that can happen from using them.
 
 ## urxvt
 
