@@ -1,0 +1,4 @@
+alias rec="asciinema rec --stdin"
+alias traduce='argos-translate -f en -t es'
+alias tran='argos-translate -f es -t en'
+
