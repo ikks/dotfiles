@@ -1,0 +1,36 @@
+[editor]
+# Show currently open buffers, only when more than one exists.
+bufferline = "multiple"
+
+# Highlight all lines with a cursor
+cursorline = true
+
+rulers = [90, 120]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+character = "╎"
+render = true
+
+[editor.statusline]
+left = ["mode", "spinner", "version-control", "file-name"]
+
+[keys.select."+"]
+# Eliminar los caracteres al final
+r = ":pipe sed 's/[ \t]*$//'"
+# Wraplines a 90
+w = ":pipe fmt -90"
+
+[keys.normal."+"]
+# Translate from English to Spanish with Internet
+e = ":pipe trans -b en:es"
+# Traducir de español a inglés con Internet
+s = ":pipe trans -b es:en"
+# Translate from English to Spanish locally
+E = ":pipe argos-translate --from en --to es"
+# Traducir de español a inglés localmente
+S = ":pipe argos-translate --from es --to en"
