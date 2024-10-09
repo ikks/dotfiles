@@ -1,0 +1,4 @@
+[record]
+command = PS1='~ ' /bin/bash --noprofile -l
+idle_time_limit = 1
+
