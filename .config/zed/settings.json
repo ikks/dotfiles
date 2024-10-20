@@ -1,0 +1,54 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette
+{
+  "vim_mode": false,
+  "assistant": {
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-1.5-flash"
+    },
+    "version": "2"
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Atelier Lakeside Dark"
+  },
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
+  "file_types": {
+    "HTML": ["shtml"],
+    "Markdown": ["smd"],
+    "CSS": ["less"],
+    "JSON": ["jsonl"]
+  },
+  "languages": {
+    "HTML": {
+      "language_servers": ["superhtml"]
+    }
+  },
+  "lsp": {
+    "pyright": {
+      "settings": {
+        "python": {
+          "pythonPath": ".venv/bin/python"
+        },
+        "python.analysis": {
+          "typeCheckingMode": "off"
+        },
+        "pyright": {
+          "disableOrganizeImports": true
+        }
+      }
+    }
+  }
+}
