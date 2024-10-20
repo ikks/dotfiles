@@ -1,0 +1,134 @@
+#use-grammars = { only = [ "ziggy", "supermd", "superhtml", "ziggy_schema", "supermd_inline" ] }
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.ruff.config.settings.format]
+preview = true
+
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+max_completion_items = 20            # set max completion results len for each group: words, snippets, unicode-input
+snippets_first = true                # completions will return before snippets by default
+snippets_inline_by_word_tail = false # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
+feature_words = true                 # enable completion by word
+feature_snippets = true              # enable snippets
+feature_unicode_input = true         # enable "unicode input"
+feature_paths = true                 # enable path completion
+feature_citations = false            # enable citation completion (only on `citation` feature enabled)
+
+# write logs to /tmp/completion.log
+[language-server.scls.environment]
+RUST_LOG = "info,simple-completion-language-server=info"
+LOG_FILE = "/tmp/completion.log"
+
+[[language]]
+name = "python"
+language-servers = ["pylsp", "scls", "ruff"]
+auto-format = true
+formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
+
+[[language]]
+name = "go"
+roots = ["go.work", "go.mod"]
+auto-format = true
+formatter = { command = 'gofmt' }
+
+[language-server.superhtml-lsp]
+command = "superhtml"
+args = ["lsp"]
+
+[[language]]
+name = "html"
+scope = "source.html"
+roots = []
+file-types = ["html"]
+language-servers = [ "superhtml-lsp" ]
+
+# Ziggy
+[language-server.ziggy-lsp]
+command = "ziggy"
+args = ["lsp"]
+
+[language-server.ziggy-schema-lsp]
+command = "ziggy"
+args = ["lsp", "--schema"]
+
+[[language]]
+name = "ziggy"
+scope = "text.ziggy"
+roots = []
+injection-regex = "ziggy|zgy"
+file-types = ["ziggy", "zgy"]
+comment-token = "//"
+auto-format = true
+formatter = { command = "ziggy" , args = ["fmt", "--stdin"] }
+language-servers = [ "ziggy-lsp" ]
+
+[[grammar]]
+name = "ziggy"
+source = { path = "/home/igor/playground/zig/ziggy/tree-sitter-ziggy" }
+
+[[language]]
+name = "ziggy_schema"
+scope = "text.ziggy_schema"
+roots = []
+injection-regex = "ziggy-schema|zgy-schema"
+file-types = ["ziggy-schema", "zgy-schema"]
+comment-token = "///"
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "ziggy" , args = ["fmt", "-", "--type", "schema"] }
+auto-format = true
+language-servers = [ "ziggy-schema-lsp" ]
+
+[[grammar]]
+name = "ziggy_schema"
+source = { path = "/home/igor/playground/zig/ziggy/tree-sitter-ziggy-schema" }
+
+# SuperMD
+[[language]]
+name = "supermd"
+scope = "source.supermd"
+roots = []
+file-types = ["smd"]
+injection-regex = "supermd|smd"
+language-servers = ["marksman"]
+
+[[grammar]]
+name = "supermd"
+source = { path = "/home/igor/playground/zig/supermd/tree-sitter/supermd" }
+
+[[language]]
+name = "supermd_inline"
+scope = "source.supermd.inline"
+injection-regex = "supermd_inline"
+file-types = []
+grammar = "supermd_inline"
+
+[[grammar]]
+name = "supermd_inline"
+source = { path = "/home/igor/playground/zig/supermd/tree-sitter/supermd-inline" }
+
+# Ziggy
+[[language]]
+name = "html"
+scope = "source.html"
+roots = []
+file-types = ["html"]
+language-servers = [ "superhtml-lsp" ]
+
+[[language]]
+name = "superhtml"
+scope = "source.superhtml"
+roots = []
+file-types = ["shtml"]
+injection-regex = "superhtml|shtml"
+auto-format = true
+language-servers = [ "superhtml-lsp" ]
+
+[[grammar]]
+name = "superhtml"
+source = { path = "/home/igor/playground/zig/superhtml/tree-sitter-superhtml" }
+
