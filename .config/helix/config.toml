@@ -5,7 +5,7 @@ bufferline = "multiple"
 # Highlight all lines with a cursor
 cursorline = true
 
-rulers = [90, 120]
+rulers = [90, 140]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -24,13 +24,45 @@ left = ["mode", "spinner", "version-control", "file-name"]
 r = ":pipe sed 's/[ \t]*$//'"
 # Wraplines a 90
 w = ":pipe fmt -90"
+# Translate from English to Spanish locally
+e = ":pipe /home/igor/bin/traduce"
+# Switch infinitive to third person
+v = ":pipe tercerapersona"
+# Show Synonims in spanish, requires Internet
+s = ":pipe espasacalvesynonims.sh"
 
 [keys.normal."+"]
 # Translate from English to Spanish with Internet
-e = ":pipe trans -b en:es"
+E = ":pipe trans -b en:es"
 # Traducir de español a inglés con Internet
-s = ":pipe trans -b es:en"
+I = ":pipe trans -b es:en"
 # Translate from English to Spanish locally
-E = ":pipe argos-translate --from en --to es"
+e = ":pipe /home/igor/bin/traduce"
 # Traducir de español a inglés localmente
-S = ":pipe argos-translate --from es --to en"
+i = ":pipe argos-translate --from es --to en"
+# Switch infinitive to third person
+v = ":pipe tercerapersona"
+# Show Synonims in spanish, requires Internet
+s = ":pipe espasacalvesynonims.sh"
+# Eliminar los caracteres al final
+r = ":pipe sed 's/[ \t]*$//'"
+# Wraplines a 90
+w = ":pipe fmt -90"
+# From the clipboard
+"+" = ":insert-output cliphist list | wofi --dmenu | cliphist decode"
+# Build zig
+z = ":run-shell-command zig build"
+# Build test
+t = ":run-shell-command zig build test"
+
+[keys.normal.space]
+
+x = ":toggle whitespace.render all none"
+
+[keys.normal]
+A-x = "extend_to_line_bounds"
+X = ["extend_line_up", "extend_to_line_bounds"]
+
+[keys.select]
+A-x = "extend_to_line_bounds"
+X = ["extend_line_up", "extend_to_line_bounds"]
