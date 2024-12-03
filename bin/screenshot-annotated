@@ -1,0 +1,11 @@
+#!/bin/env bash
+
+out_dir="/home/igor/Pictures/Screenshots/"
+dateTime=screenshot-"$(date +%Y-%m-%d-%H%M%S)".png
+
+filename="$out_dir""$dateTime"
+grim -g "$(slurp)" "$filename"
+echo "$filename" | wl-copy
+/home/igor/bin/satty --filename "$filename" -o satty-"$filename"
+echo satty-"$filename" | wl-copy
+cat "$filename" | wl-copy

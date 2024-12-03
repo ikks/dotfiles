@@ -1,0 +1,27 @@
+#!/bin/env bash
+
+icon="/home/igor/.local/share/icons/fectp.png"
+out_dir="/home/igor/Videos/Screencasts/"
+
+if pgrep -x "wf-recorder"; then
+  pkill -INT -x wf-recorder
+  filename="$out_dir""$(ls -tr "$out_dir" | tail -1)"
+  echo "$filename" | wl-copy
+  notify-send -i "$icon" -h string:wf-recorder:record -t 1000 "Finished Recording" "$filename"
+  exit 0
+fi
+
+nn=$(notify-send -i $icon -p -h string:wf-recorder:record -t 3000 "Recording in:" "   3")
+
+sleep 1 && notify-send -i $icon -h string:wf-recorder:record -r "$nn" "Recording in:" "   2"
+play /usr/share/sounds/freedesktop/stereo/bell.oga
+
+sleep 1 && notify-send -i $icon -h string:wf-recorder:record -t 800 -r "$nn" "Recording in:" "   1"
+play /usr/share/sounds/freedesktop/stereo/bell.oga
+
+sleep 1
+play /usr/share/sounds/freedesktop/stereo/bell.oga
+
+dateTime=screencast-$(date +%Y-%m-%d-%H%M%S)
+
+wf-recorder --bframes max_b_frames -a -f "$HOME"/Videos/Screencasts/"$dateTime".mp4 -g "$(slurp)" &
