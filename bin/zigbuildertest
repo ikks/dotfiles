@@ -1,0 +1,3 @@
+#!/bin/bash
+kitten @ send-text -m title:builder noti zig build test
+kitten @ send-key -m title:builder Return

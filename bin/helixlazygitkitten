@@ -1,0 +1,5 @@
+#!/bin/bash
+kitten @ focus-window -m title:builder
+kitten @ action next_layout
+kitten @ send-text -m title:builder lazygit
+kitten @ send-key -m title:builder Return

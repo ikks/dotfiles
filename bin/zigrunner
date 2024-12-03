@@ -1,0 +1,7 @@
+#!/bin/bash
+if [[ $# -gt 0 ]]; then
+  kitten @ send-text -m title:builder noti zig build run -- "$@"
+else
+  kitten @ send-text -m title:builder noti zig build run
+fi
+kitten @ send-key -m title:builder Return

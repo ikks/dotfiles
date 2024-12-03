@@ -1,0 +1,7 @@
+kitten @ send-text -m "title:builder or title:helper" cd $1
+kitten @ send-key -m "title:helper or title:builder" Return
+kitten @ send-text -m "title:builder or title:helper" clear
+kitten @ send-key -m "title:helper or title:builder" Return
+cd $1
+clear
+
