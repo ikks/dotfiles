@@ -36,6 +36,31 @@ roots = ["go.work", "go.mod"]
 auto-format = true
 formatter = { command = 'gofmt' }
 
+[[language]]
+name = "javascript"
+auto-format = true
+formatter = { command = "js-beautify", args = ["-s", "2"]}
+
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "typescript"]}
+
+[[language]]
+name = "jsx"
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "jsx"]}
+
+[[language]]
+name = "tsx"
+auto-format = true
+formatter = { command = "dprint", args = ["fmt", "--stdin", "tsx"]}
+
+[[language]]
+name = "css"
+auto-format = true
+formatter = { command = "css-beautify" }
+
 [language-server.superhtml-lsp]
 command = "superhtml"
 args = ["lsp"]
@@ -46,6 +71,8 @@ scope = "source.html"
 roots = []
 file-types = ["html"]
 language-servers = [ "superhtml-lsp" ]
+auto-format = true
+formatter = { command = 'html-beautify', args = ["-s", "2"]}
 
 # Ziggy
 [language-server.ziggy-lsp]
@@ -132,3 +159,19 @@ language-servers = [ "superhtml-lsp" ]
 name = "superhtml"
 source = { path = "/home/igor/playground/zig/superhtml/tree-sitter-superhtml" }
 
+[[language]]
+name = "typst"
+auto-format = true
+formatter = { command = "typstyle" }
+
+[[language]]
+name = "c"
+auto-format = true
+
+[[language]]
+name = "bash"
+auto-format = true
+
+[[language]]
+name = "zig"
+auto-format = true

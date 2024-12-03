@@ -51,9 +51,11 @@ w = ":pipe fmt -90"
 # From the clipboard
 "+" = ":insert-output cliphist list | wofi --dmenu | cliphist decode"
 # Build zig
-z = ":run-shell-command zig build"
+z = ":run-shell-command zigbuilder"
 # Build test
-t = ":run-shell-command zig build test"
+t = ":run-shell-command zigbuildertest"
+# Lazygit
+g = ":run-shell-command helixlazygitkitten"
 
 [keys.normal.space]
 
