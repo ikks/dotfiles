@@ -250,6 +250,7 @@ bindsym Print exec ~/bin/screenshot
 bindsym Shift+Print exec ~/bin/screenshot-annotated
 bindsym Ctrl+Print exec ~/bin/screenshot-fullscreen
 bindsym $mod+Print exec ~/bin/screencast
+bindsym $mod+Shift+Print exec ~/bin/screencast-withkeys
 
 # Clipping history
 # bindsym $mod+Shift+v exec ~/bin/theclip 
@@ -260,7 +261,7 @@ bindsym $mod+Shift+n exec swaync-client -t -sw
 # Mobile connection
 
 bindsym $mod+Shift+m exec A=$(kdeconnect-cli -l) >> /tmp/mobilemessages.log
-# bindsym $mod+Shift+m exec A=$(kdeconnect-cli -l) notify-send --icon=/home/igor/.local/share/icons/fectp.png "Mobile" "${A:1}"
+# bindsym $mod+Shift+m exec A=$(kdeconnect-cli -l) notify-send --icon=~/.local/share/icons/fectp.png "Mobile" "${A:1}"
 
 exec kdeconnect-cli -l
 
@@ -271,7 +272,7 @@ workspace_layout tabbed
 exec brave-browser
 
 assign [app_id="first-kitty"] workspace 2
-exec /home/igor/bin/kitty --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
+exec ~/bin/kitty --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
 
 
 assign [app_id="help-resources"] workspace 3
@@ -291,7 +292,7 @@ exec swaync
 
 #     # When the status_command prints a new line to stdout, swaybar updates.
 #     # The default just shows the current date and time.
-#     status_command /home/igor/bin/swaystatus
+#     status_command ~/bin/swaystatus
 #     # status_command while cat /sys/class/power_supply/BAT0/capacity ; do sleep 1; done
 #     colors {
 #         statusline #ffffff
