@@ -1,11 +1,13 @@
 #!/bin/env bash
 
 out_dir="/home/igor/Pictures/Screenshots/"
-dateTime=screenshot-"$(date +%Y-%m-%d-%H%M%S)".png
+ss_fn=screenshot-"$(date +%Y-%m-%d-%H%M%S)".png
+an_fn=screenwnot-"$(date +%Y-%m-%d-%H%M%S)".png
 
-filename="$out_dir""$dateTime"
-grim -g "$(slurp)" "$filename"
-echo "$filename" | wl-copy
-/home/igor/bin/satty --filename "$filename" -o satty-"$filename"
-echo satty-"$filename" | wl-copy
-cat "$filename" | wl-copy
+infilename="$out_dir""$ss_fn"
+outfilename="$out_dir""$an_fn"
+grim -g "$(slurp)" "$infilename"
+echo "$infilename" | wl-copy
+/home/igor/bin/satty --filename "$infilename" -o "$outfilename"
+echo satty-"$outfilename" | wl-copy
+wl-copy <"$outfilename"
