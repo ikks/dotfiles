@@ -1,0 +1,3 @@
+kitten @ send-text -m "not title:editor" clear
+kitten @ send-key -m "not title:editor" Return
+

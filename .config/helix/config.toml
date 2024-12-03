@@ -48,7 +48,7 @@ s = ":pipe espasacalvesynonims.sh"
 r = ":pipe sed 's/[ \t]*$//'"
 # Wraplines a 90
 w = ":pipe fmt -90"
-# From the clipboard
+# Insert from the clipboard
 "+" = ":insert-output cliphist list | wofi --dmenu | cliphist decode"
 # Build zig
 z = ":run-shell-command zigbuilder"
@@ -56,6 +56,8 @@ z = ":run-shell-command zigbuilder"
 t = ":run-shell-command zigbuildertest"
 # Lazygit
 g = ":run-shell-command helixlazygitkitten"
+# clear screens
+c = ":run-shell-command clearothers"
 
 [keys.normal.space]
 
