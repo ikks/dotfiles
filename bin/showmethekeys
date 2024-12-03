@@ -1,0 +1,12 @@
+#!/bin/env bash
+
+program=wshowkeys
+echo hola
+if pgrep -x "$program"; then
+  echo acabar
+  pkill -INT -x $program
+  exit 0
+fi
+
+echo empezar
+~/bin/$program
