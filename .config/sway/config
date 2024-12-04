@@ -1,27 +1,14 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
 set $mod Mod4
-# Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
 set $term alacritty
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu "wofi --show drun,run --allow-images -M fuzzy -G"
-
-include /etc/sway/config-vars.d/*
 
 default_border none
 gaps inner 3
@@ -29,39 +16,9 @@ gaps outer 0
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-### Idle configuration
-#
-# Example configuration:
-#
-
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
 #
 
 input "1:1:AT_Translated_Set_2_keyboard" {
@@ -88,26 +45,37 @@ input "FTE1200:00 0B05:0701 Touchpad" {
 
 include keys.sway
 
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-exec kdeconnect-cli -l
 
-exec wezterm  --config "window_background_opacity = 0.5"  start --class worker wl-paste -w /home/igor/go/bin/cliphist store
 # Open automatically apps in a given workspace
 assign [app_id="brave-browser"] workspace 1
-workspace_layout tabbed
-exec brave-browser
-
 assign [app_id="first-kitty"] workspace 2
-exec ~/bin/kitty --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
-
-
 assign [app_id="help-resources"] workspace 3
+workspace_layout tabbed
 
-# exec wl-paste --watch cliphist store
+# Use default constrains for certain windows
+for_window {
+  [app_id="xdg-desktop-portal-gnome"] floating enable
+  [app_id="worker-kitty"] floating enable, resize set width 1266 height 375, move to scratchpad
+  [window_role="pop-up"] floating enable
+  [window_role="bubble"] floating enable
+  [window_role="dialog"] floating enable
+  [window_type="dialog"] floating enable
+}
+
+# Sleep mode with lock
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+# Default applications
+exec brave-browser
+exec ~/bin/kitty --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
+exec ~/bin/kitty --class "worker-kitty" -o "background_opacity=0.6"
+exec wl-paste --watch /home/igor/go/bin/cliphist store
 exec swaync
+exec kdeconnect-cli -l
 
-# Application switcher  ¿?
 
 #
 # Status Bar:
