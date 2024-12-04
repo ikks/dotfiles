@@ -1,0 +1,3 @@
+#!/bin/env bash
+
+/home/igor/go/bin/cliphist list | wofi -d | cliphist decode | tee | wl-copy

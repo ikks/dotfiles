@@ -306,7 +306,7 @@ bindsym $mod+Print exec ~/bin/screencast
 bindsym $mod+Shift+Print exec ~/bin/screencast-withkeys 
 
 # Clipping history
-# bindsym $mod+Shift+v exec ~/bin/theclip 
+bindsym $mod+Shift+v exec ~/bin/theclip 
 
 # Notification center
 bindsym $mod+Shift+n exec swaync-client -t -sw
@@ -322,7 +322,7 @@ bindsym $mod+Shift+m exec A=$(kdeconnect-cli -l) >> /tmp/mobilemessages.log
 
 exec kdeconnect-cli -l
 
-exec wezterm --config "window_background_opacity = 0.5" -e wl-paste -w cliphist store
+exec wezterm  --config "window_background_opacity = 0.5"  start --class worker wl-paste -w /home/igor/go/bin/cliphist store
 # Open automatically apps in a given workspace
 assign [app_id="brave-browser"] workspace 1
 workspace_layout tabbed
