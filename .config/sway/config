@@ -257,6 +257,10 @@ bindsym $mod+Shift+Print exec ~/bin/screencast-withkeys
 
 # Notification center
 bindsym $mod+Shift+n exec swaync-client -t -sw
+# go to open window
+bindsym $mod+g exec ~/bin/wl_active_applications.py
+# go to open window
+bindsym $mod+Shift+g exec ~/bin/wl_show_keybindings
 
 # Mobile connection
 
