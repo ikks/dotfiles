@@ -226,6 +226,5 @@ bindsym $mod+Question exec ~/bin/wl_show_keybindings
 
 # Mobile connection
 
-# bindsym $mod+Shift+m exec A=$(kdeconnect-cli -l) >> /tmp/mobilemessages.log
 # bindsym $mod+Shift+m exec A=$(kdeconnect-cli -l) notify-send --icon=~/.local/share/icons/fectp.png "Mobile" "${A:1}"
 

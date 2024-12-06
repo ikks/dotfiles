@@ -1,3 +1,4 @@
 #!/bin/bash
-grep bindsym ~/.config/sway/keys.sway 2>/dev/null | sed 's%^\s*%%;s%^bindsym %%;s%--locked %%' | grep -v -i "^# " | fuzzel -dmenu -b 000000D1 -m 00FF00 -m 00FF00 -w 50
-# | grep "#" | sed 's% %#%' | gawk -F"#" '{printf "%s: %s\n" ,$3, $1}'
+#
+# Shows keybindings for Sway
+~/bin/extractshortcutswayhelp.py | sed 's%^\s*%%;s%^bindsym %%;s%--locked %%' | grep -v -i "^# " | fuzzel -dmenu -b 000000D1 -m 00FF00 -m 00FF00 -w 50
