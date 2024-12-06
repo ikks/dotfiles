@@ -8,7 +8,7 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
-set $menu "wofi --show drun,run --allow-images -M fuzzy -G"
+set $menu fuzzel
 
 default_border none
 gaps inner 3

@@ -1,4 +1,4 @@
 #!/bin/bash
 #
 # Shows keybindings for Sway
-~/bin/extractshortcutswayhelp.py | sed 's%^\s*%%;s%^bindsym %%;s%--locked %%' | grep -v -i "^# " | fuzzel -dmenu -b 000000D1 -m 00FF00 -m 00FF00 -w 50
+~/bin/extractshortcutswayhelp.py | sed 's%^\s*%%;s%^bindsym %%;s%--locked %%' | grep -v -i "^# " | fuzzel -dmenu
