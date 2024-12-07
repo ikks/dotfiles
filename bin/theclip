@@ -1,3 +1,3 @@
 #!/bin/env bash
 
-/home/igor/go/bin/cliphist list | fuzzel -dmenu | cliphist decode | tee | wl-copy
+/home/igor/go/bin/cliphist list | wofi -d -G | cliphist decode | tee | wl-copy
