@@ -224,6 +224,9 @@ bindsym $mod+g exec ~/bin/wl_active_applications.py
 #- Show keybindings
 bindsym $mod+Question exec ~/bin/wl_show_keybindings
 
+#- Wifi network selection
+bindsym $mod+apostrophe exec ~/bin/nmcli-rofi
+
 # Mobile connection
 
 # bindsym $mod+Shift+m exec A=$(kdeconnect-cli -l) notify-send --icon=~/.local/share/icons/fectp.png "Mobile" "${A:1}"
