@@ -214,7 +214,7 @@ bindsym $mod+Print exec ~/bin/screencast
 #- Screencast showing keys
 bindsym $mod+Shift+Print exec ~/bin/screencast-withkeys
 
-#- Clipping history
+#- Paste from Clipboard including images
 bindsym $mod+Shift+v exec ~/bin/theclip
 
 #- Notification center

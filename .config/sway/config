@@ -50,12 +50,22 @@ include keys.sway
 assign [app_id="brave-browser"] workspace 1
 assign [app_id="first-kitty"] workspace 2
 assign [app_id="help-resources"] workspace 3
+assign [title="Telegram"] workspace 4
+assign [class="discord"] workspace 4
 workspace_layout tabbed
 
 # Use default constrains for certain windows
 for_window {
   [app_id="xdg-desktop-portal-gnome"] floating enable
   [app_id="worker-kitty"] floating enable, resize set width 1266 height 375, move to scratchpad
+  [app_id="org.gnome.clocks"] floating enable
+  [app_id="org.gnome.Weather"] floating enable
+  [app_id="org.gnome.Calculator"] floating enable
+  [app_id="blueman-manager"] floating enable
+  [app_id="wdisplays"] floating enable
+  [app_id="xfce4-appfinder"] floating enable
+  [app_id="nm-connection-editor"] floating enable
+  [app_id="wev"] floating enable
   [window_role="pop-up"] floating enable
   [window_role="bubble"] floating enable
   [window_role="dialog"] floating enable
