@@ -66,6 +66,8 @@ for_window {
   [app_id="xfce4-appfinder"] floating enable
   [app_id="nm-connection-editor"] floating enable
   [app_id="wev"] floating enable
+  [title="nsxiv"] floating enable
+  [app_id="imv"] floating enable
   [window_role="pop-up"] floating enable
   [window_role="bubble"] floating enable
   [window_role="dialog"] floating enable
