@@ -69,6 +69,7 @@ for_window {
   [app_id="wev"] floating enable
   [title="nsxiv"] floating enable
   [app_id="imv"] floating enable
+  [app_id="yad"] floating enable
   [window_role="pop-up"] floating enable
   [window_role="bubble"] floating enable
   [window_role="dialog"] floating enable
