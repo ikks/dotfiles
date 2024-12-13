@@ -1,0 +1,9 @@
+#!/bin/bash
+BG_DIR="$HOME/.local/share/backgrounds/2024debian/"
+while true; do
+	OLD_PID=$(ps aux | pgrep swaybg)
+	sleep 20
+	swaybg -i "$(fd . -e jpg "$BG_DIR" | shuf -n1)" -m fill &
+	sleep 2
+	kill "$OLD_PID" 2>/dev/null
+done

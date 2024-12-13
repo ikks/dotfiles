@@ -89,6 +89,7 @@ exec ~/bin/kitty --class "first-kitty" -o "enabled_layouts=fat,stack" --session 
 exec ~/bin/kitty --class "worker-kitty" -o "background_opacity=0.6"
 exec wl-paste --watch /home/igor/go/bin/cliphist store
 exec swaync
+exec ~/bin/switchbg
 exec kdeconnect-cli -l
 
 
