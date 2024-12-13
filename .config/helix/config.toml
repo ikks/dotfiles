@@ -27,7 +27,7 @@ w = ":pipe fmt -90"
 # Translate from English to Spanish locally
 e = ":pipe /home/igor/bin/traduce"
 # Switch infinitive to third person
-v = ":pipe tercerapersona"
+v = ":pipe /home/igor/bin/conjugatercera"
 # Show Synonims in spanish, requires Internet
 s = ":pipe espasacalvesynonims.sh"
 
@@ -41,7 +41,7 @@ e = ":pipe /home/igor/bin/traduce"
 # Traducir de español a inglés localmente
 i = ":pipe argos-translate --from es --to en"
 # Switch infinitive to third person
-v = ":pipe tercerapersona"
+v = ":pipe /home/igor/bin/conjugatercera"
 # Show Synonims in spanish, requires Internet
 s = ":pipe espasacalvesynonims.sh"
 # Eliminar los caracteres al final
