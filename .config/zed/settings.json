@@ -8,7 +8,7 @@
 // command palette
 {
   "vim_mode": false,
-  "assistant": {
+  "agent": {
     "default_model": {
       "provider": "google",
       "model": "gemini-1.5-flash"
@@ -23,13 +23,14 @@
     "dark": "Atelier Lakeside Dark"
   },
   "features": {
-    "inline_completion_provider": "supermaven"
+    "edit_prediction_provider": "supermaven"
   },
   "file_types": {
     "HTML": ["shtml"],
     "Markdown": ["smd"],
     "CSS": ["less"],
-    "JSON": ["jsonl"]
+    "JSON": ["jsonl"],
+    "Dockerfile": ["Dockerfile.*", "podfile", "dockerfile"]
   },
   "languages": {
     "HTML": {
@@ -50,5 +51,8 @@
         }
       }
     }
+  },
+  "edit_predictions": {
+    "mode": "subtle"
   }
 }
