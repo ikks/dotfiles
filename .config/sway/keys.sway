@@ -12,6 +12,9 @@ bindsym $mod+BackSpace kill
 #- Open apps
 bindsym $mod+d exec $menu
 
+#- Open Anything
+bindsym $mod+a exec $apps
+
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.

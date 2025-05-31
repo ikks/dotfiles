@@ -7,8 +7,9 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
+set $term kitty
 set $menu fuzzel
+set $apps $term --class="launcher" -o "background_opacity=0.6" -e ~/bin/sway-launcher-desktop.sh
 
 default_border none
 gaps inner 3
@@ -16,7 +17,7 @@ gaps outer 0
 
 ### Output configuration
 #
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ### Input configuration
 #
@@ -69,12 +70,15 @@ for_window {
   [app_id="wev"] floating enable
   [title="nsxiv"] floating enable
   [app_id="imv"] floating enable
-  [app_id="yad"] floating enable
   [window_role="pop-up"] floating enable
+  [app_id="pavucontrol"] floating enable
+  [app_id="org.gnome.Settings"] floating enable
+  [app_id="yad"] floating enable
   [window_role="bubble"] floating enable
   [window_role="dialog"] floating enable
   [window_type="dialog"] floating enable
   [app_id="soffice"] floating enable
+  [app_id="launcher"] floating enable, sticky enable, resize set 30 ppt 40 ppt, border pixel 10
 }
 
 # Sleep mode with lock
@@ -84,12 +88,20 @@ exec swayidle -w \
          before-sleep 'swaylock -f -c 000000'
 
 # Default applications
-exec brave-browser
-exec ~/bin/kitty --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
-exec ~/bin/kitty --class "worker-kitty" -o "background_opacity=0.6"
+exec brave-browser --enable-features=UseOzonePlatform --ozone-platform=wayland
+exec $term --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
+exec $term --class "worker-kitty" -o "background_opacity=0.6"
+
+# Global Copy - Paste
 exec wl-paste --watch /home/igor/go/bin/cliphist store
+
+# Notification center
 exec swaync
+
+# Change the background
 exec ~/bin/switchbg
+
+# You have a mobile connected to the same Wifi :)
 exec kdeconnect-cli -l
 
 
