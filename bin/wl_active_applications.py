@@ -59,7 +59,9 @@ def extract_nodes_iterative(workspace):
 def parse_windows(windows):
     parsed_windows = []
     for window in windows:
-        parsed_windows.append(window.get("name"))
+        parsed_windows.append(
+            "[{}] {}".format(window.get("app_id"), window.get("name"))
+        )
     return parsed_windows
 
 
