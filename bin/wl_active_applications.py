@@ -72,8 +72,7 @@ def build_wofi_string(windows):
 
 # Executes wofi with the given input string
 def show_wofi(windows):
-    command = "fuzzel -R -dmenu -b 000000D1 -w 50"
-
+    command = "/usr/bin/fuzzel -R -d -b 000000D1 -w 50"
     process = subprocess.Popen(
         command,
         shell=True,
