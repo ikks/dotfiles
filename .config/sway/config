@@ -12,8 +12,10 @@ set $menu fuzzel
 set $apps $term --class="launcher" -o "background_opacity=0.6" -e ~/bin/sway-launcher-desktop.sh
 
 default_border none
-gaps inner 3
+gaps inner 2
 gaps outer 0
+
+font pango:JetBrainsMono Nerd Font 10
 
 ### Output configuration
 #
@@ -90,7 +92,7 @@ exec swayidle -w \
 # Default applications
 exec brave-browser --enable-features=UseOzonePlatform --ozone-platform=wayland
 exec $term --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
-exec $term --class "worker-kitty" -o "background_opacity=0.6"
+exec $term --class "worker-kitty" -o "background_opacity=0.8"
 
 # Global Copy - Paste
 exec wl-paste --watch /home/igor/go/bin/cliphist store
