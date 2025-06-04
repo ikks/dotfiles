@@ -10,8 +10,8 @@
   "vim_mode": false,
   "agent": {
     "default_model": {
-      "provider": "google",
-      "model": "gemini-1.5-flash"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
     },
     "version": "2"
   },
