@@ -7,24 +7,39 @@ from argparse import ArgumentParser
 import subprocess
 import json
 
-enter = "\n"
+# Available selectors, make sure you have the one you choose installed:
+CMD_WOFI_SELECTOR = 'wofi -p "Windows: " -d -i --hide-scroll'
+CMD_FUZZEL_SELECTOR = "fuzzel -R -d -b 000000D1 -w 50"
+CMD_ROFI_SELECTOR = "rofi -dmenu window"
+CMD_DMENU_SELECTOR = "dmenu -l 5"
+
+# Pick your preferred selector
+CMD_MENU_SELECTOR = CMD_FUZZEL_SELECTOR
+
+ENTER = "\n"
+CMD_SWAY_GET_WINDOW_INFO = "swaymsg -t get_tree"
+CMD_SWAY_SET_ACTIVE_WINDOW = "swaymsg [con_id={}] focus"
 
 
-# Returns a list of all json window objects
 def get_windows():
-    command = "swaymsg -t get_tree"
-
     process = subprocess.Popen(
-        command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        CMD_SWAY_GET_WINDOW_INFO,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
-    data = json.loads(process.communicate()[0])
 
+    sway_output = process.communicate()[0]
+
+    if process.returncode != 0:
+        raise Exception(
+            "Make sure you have swaymsg installed, verify with 'swaymsg -t get_tree'"
+        )
+    data = json.loads(sway_output)
     # Select outputs that are active
     windows = []
     for output in data["nodes"]:
-        # The scratchpad (under __i3) is not supported
         if output.get("type") == "output":
-            # if output.get("name") != "__i3" and output.get("type") == "output":
             workspaces = output.get("nodes")
             for ws in workspaces:
                 if ws.get("type") == "workspace":
@@ -32,7 +47,6 @@ def get_windows():
     return windows
 
 
-# Extracts all windows from a sway workspace json object
 def extract_nodes_iterative(workspace):
     all_nodes = []
 
@@ -55,7 +69,6 @@ def extract_nodes_iterative(workspace):
     return all_nodes
 
 
-# Returns an array of all windows
 def parse_windows(windows):
     parsed_windows = []
     for window in windows:
@@ -65,16 +78,13 @@ def parse_windows(windows):
     return parsed_windows
 
 
-# Returns a newline seperated UFT-8 encoded string of all windows for wofi
 def build_wofi_string(windows):
-    return enter.join(windows).encode("UTF-8")
+    return ENTER.join(windows).encode("UTF-8")
 
 
-# Executes wofi with the given input string
 def show_wofi(windows):
-    command = "/usr/bin/fuzzel -R -d -b 000000D1 -w 50"
     process = subprocess.Popen(
-        command,
+        CMD_MENU_SELECTOR,
         shell=True,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
@@ -83,7 +93,6 @@ def show_wofi(windows):
     return process.communicate(input=windows)[0]
 
 
-# Returns the sway window id of the window that was selected by the user inside wofi
 def parse_id(windows, parsed_windows, selected):
     selected = (selected.decode("UTF-8"))[:-1]  # Remove new line character
     window_index = int(
@@ -92,15 +101,13 @@ def parse_id(windows, parsed_windows, selected):
     return str(windows[window_index].get("id"))  # Get sway window id based on the index
 
 
-# Switches the focus to the given id
 def switch_window(id):
-    command = "swaymsg [con_id={}] focus".format(id)
+    command = CMD_SWAY_SET_ACTIVE_WINDOW.format(id)
 
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     process.communicate()[0]
 
 
-# Entry point
 if __name__ == "__main__":
     parser = ArgumentParser(description="Wofi based window switcher")
 
