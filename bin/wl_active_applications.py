@@ -6,12 +6,24 @@
 from argparse import ArgumentParser
 import subprocess
 import json
+import logging
+from typing import Optional
+from collections import OrderedDict
+import sys
 
 # Available selectors, make sure you have the one you choose installed:
-CMD_WOFI_SELECTOR = 'wofi -p "Windows: " -d -i --hide-scroll'
-CMD_FUZZEL_SELECTOR = "fuzzel -R -d -b 000000D1 -w 50"
-CMD_ROFI_SELECTOR = "rofi -dmenu window"
-CMD_DMENU_SELECTOR = "dmenu -l 5"
+CMD_WOFI_SELECTOR = '{} -p  "Windows: " -d -i --hide-scroll'
+CMD_FUZZEL_SELECTOR = "{} -R -d -b 000000D1 -w 50"
+CMD_ROFI_SELECTOR = "{} -dmenu window"
+CMD_DMENU_SELECTOR = "{} -l 5"
+
+CMD_SELECTIONS = OrderedDict({
+    "fuzzel": CMD_FUZZEL_SELECTOR,
+    "wofi": CMD_WOFI_SELECTOR,
+    "rofi": CMD_ROFI_SELECTOR,
+    "dmenu": CMD_DMENU_SELECTOR,
+})
+
 
 # Pick your preferred selector
 CMD_MENU_SELECTOR = CMD_FUZZEL_SELECTOR
@@ -21,7 +33,49 @@ CMD_SWAY_GET_WINDOW_INFO = "swaymsg -t get_tree"
 CMD_SWAY_SET_ACTIVE_WINDOW = "swaymsg [con_id={}] focus"
 
 
-def get_windows():
+def get_launcher(preferred_launcher: Optional[str] = None) -> Optional[str]:
+    """Checks if fuzzel, wofi, rofi, or dmenu are installed and returns the first one found.
+    Tries the preferred launcher first, returns it if installed.
+
+    It's possible to pass the full path for the launcher.
+
+    Examples:
+    get_launcher() // returns the first launcher found
+    get_launcer("rofi") // returns rofi with the configured options
+    get_launcher("/usr/bin/wofi") // returns wofi with the configured options, if the path to wofi holds
+    """
+    launchers = CMD_SELECTIONS.keys()
+    bin_launcher = ""
+    if preferred_launcher:
+        bin_launcher = preferred_launcher.split("/")[-1]
+        try:
+            launcher_command = CMD_SELECTIONS[bin_launcher].format(preferred_launcher)
+            _ = subprocess.run([preferred_launcher, "-v"], capture_output=True, text=True, check=True)
+
+            return launcher_command
+        except FileNotFoundError:
+            logging.error(f"{launcher_command} not found. Please adjust your path")
+            sys.exit(2)
+        except subprocess.CalledProcessError as e:
+            logging.error(f"Error checking {launcher}: return code {e.returncode}, output: {e.output}, stderr: {e.stderr}")
+        except KeyError:
+            logging.error(f"Preferred launcher '{bin_launcher}' is not in the list of supported launchers. You can make a PR adding the name and the default parameters, or open an issue with the default options.")
+            sys.exit(1)
+
+    for launcher in launchers:
+        try:
+            _ = subprocess.run([launcher, "-v"])
+            # Use the default options for the selected launcher
+            launcher_command = CMD_SELECTIONS[launcher].format(launcher)
+
+            return launcher_command
+        except FileNotFoundError:
+            logging.error(f"{launcher} not found.")
+        except subprocess.CalledProcessError as e:
+            logging.error(f"Error checking {launcher}: return code {e.returncode}, output: {e.output}, stderr: {e.stderr}")
+    return None
+
+def get_windows() -> str:
     """
     Get a list of all window objects from Sway's window tree.
 
@@ -143,7 +197,7 @@ def parse_windows(windows):
     return parsed_windows
 
 
-def build_wofi_string(windows):
+def build_options_string(windows):
     """
     Build a UTF-8 encoded string of windows for menu display.
 
@@ -169,7 +223,7 @@ def build_wofi_string(windows):
     return ENTER.join(windows).encode("UTF-8")
 
 
-def show_wofi(windows):
+def show_picker(windows, program_to_run: Optional[str] = None):
     """
     Display window list in a menu selector and return user selection.
 
@@ -185,11 +239,13 @@ def show_wofi(windows):
     Examples:
         >>> # Mock example - actual function spawns external process
         >>> windows_bytes = b'[firefox] Mozilla Firefox\\n[terminal] Terminal\\n'
-        >>> # result = show_wofi(windows_bytes)
+        >>> # result = show_picker(windows_bytes)
         >>> # Returns selected line or empty bytes
     """
+    selected_launcher = get_launcher(program_to_run)
+
     process = subprocess.Popen(
-        CMD_MENU_SELECTOR,
+        selected_launcher,
         shell=True,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
@@ -221,7 +277,7 @@ def parse_id(windows, parsed_windows, selected):
         >>> window_id
         '12345'
     """
-    selected = (selected.decode("UTF-8"))[:-1]  # Remove new line character
+    selected = (selected.decode("UTF/8"))[:-1]  # Remove new line character
     window_index = int(
         parsed_windows.index(selected)
     )  # Get index of selected window in the parsed window array
@@ -260,15 +316,21 @@ if __name__ == "__main__":
 
     Uses external menu selectors like wofi, dmenu, fuzzel, or rofi.
     """
-    parser = ArgumentParser(description="Wofi based window switcher")
 
+    logging.basicConfig(level=logging.ERROR)
+
+    parser = ArgumentParser(description="Wofi based window switcher")
+    parser.add_argument(
+        "--program", type=str, required=False, help="name of the program to run or the path to the program, defaults to fuzzel"
+    )
+    args = parser.parse_args()
     windows = get_windows()
 
     parsed_windows = parse_windows(windows)
 
-    wofi_string = build_wofi_string(parsed_windows)
+    options = build_options_string(parsed_windows)
 
-    selected = show_wofi(wofi_string)
+    selected = show_picker(options, args.program)
 
     try:
         selected_id = parse_id(windows, parsed_windows, selected)
