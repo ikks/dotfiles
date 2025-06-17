@@ -1,0 +1,11 @@
+MODE wml
+
+ASPELL >=0.60
+
+MAGIC /<noregex>/wml
+
+DESCRIPTION mode for checking generic SGML/XML documents
+
+FILTER url
+FILTER email
+FILTER sgml
