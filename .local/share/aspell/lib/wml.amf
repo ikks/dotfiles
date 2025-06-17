@@ -4,7 +4,7 @@ ASPELL >=0.60
 
 MAGIC /<noregex>/wml
 
-DESCRIPTION mode for checking generic SGML/XML documents
+DESCRIPTION mode for checking wml documents
 
 FILTER url
 FILTER email

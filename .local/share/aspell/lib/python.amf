@@ -1,0 +1,16 @@
+MODE python
+
+ASPELL >=0.60.1
+
+MAGIC /<noregex>/py
+
+DESCRIPTION mode for checking python docstrings pep-0257
+
+FILTER url
+FILTER context
+OPTION clear-context-delimiters 
+OPTION add-context-delimiters """ """
+OPTION add-context-delimiters r""" """
+OPTION disable-context-visible-first
+
+
