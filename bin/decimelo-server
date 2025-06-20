@@ -1,0 +1,2 @@
+#!/bin/bash
+source "$HOME/playground/python/3.11.10/.venv/bin/activate" && tts-server --model_name tts_models/es/mai/tacotron2-DDC

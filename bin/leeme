@@ -1,0 +1,34 @@
+#!/bin/bash
+
+SERVER=http://localhost
+PORT=5002
+
+# Reads in spanish a sentences as a first parameter
+# Uses the server from Coqui and runs locally
+# decimelo-server
+#
+# To install Coqui, in a python 3.11 venv pip install tts
+# Requires decimelo-server
+
+function dimelo() {
+  ORIGINAL=$1
+  REPLACED=`printf %s "$ORIGINAL"|jq -sRr @uri`
+  echo $REPLACED 
+  MYWAV=$(mktemp).wav
+  curl -s "$SERVER:$PORT/api/tts?text=$REPLACED&speaker_id=&style_wav=&language_id=" --output "$MYWAV"
+  if [[ ! $? -eq 0 ]]; then
+    gum log "Make sure you have decimelo-server running in $SERVER:$PORT" -l error
+    exit 1
+  fi
+  aplay "$MYWAV" >/dev/null 2>&1
+  rm "$MYWAV"
+}
+
+if [[ $# == 1 ]]; then
+  dimelo "$1"
+  exit 0
+fi
+
+while read -r line; do
+  dimelo "$line"
+done
