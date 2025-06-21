@@ -25,6 +25,10 @@ RUST_LOG = "info,simple-completion-language-server=info"
 LOG_FILE = "/tmp/completion.log"
 
 [[language]]
+name = "rst"
+language-servers = ["/home/igor/playground/python/3.13/.venv/bin/esbonio"]
+
+[[language]]
 name = "python"
 language-servers = ["pylsp", "scls", "ruff"]
 auto-format = true
@@ -69,9 +73,9 @@ args = ["lsp"]
 name = "html"
 scope = "source.html"
 roots = []
-file-types = ["html"]
-language-servers = [ "superhtml-lsp" ]
-auto-format = true
+file-types = ["html", "wml"]
+# language-servers = [ "superhtml-lsp" ]
+auto-format = false
 formatter = { command = 'html-beautify', args = ["-s", "2"]}
 
 # Ziggy

@@ -20,7 +20,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Atelier Lakeside Dark"
+    "dark": "Ayu Dark"
   },
   "features": {
     "edit_prediction_provider": "supermaven"

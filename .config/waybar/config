@@ -2,13 +2,14 @@
     // "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "ipc": true,
+    "mode": "dock",
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "temperature", "backlight", "keyboard-state", "battery", "clock", "tray"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "temperature", "keyboard-state", "battery", "cpu", "clock", "tray"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -84,11 +85,18 @@
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%a %d-%m-%Y}",
+        "calendar": {
+          "format": {
+            "months": "<span color='#ffead3'>{}</span>",
+            "today": "<span color='#55ff55'><b>{}</b></span>"
+          }
+        }
     },
     "cpu": {
         "format": "{usage}% ",
-        "tooltip": false
+        // "tooltip": false,
+        "on-click-right": "alacritty -e btop"
     },
     "memory": {
         "format": "{}% "
@@ -130,7 +138,8 @@
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click-right": "nmcli-rofi"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
