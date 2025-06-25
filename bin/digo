@@ -1,0 +1,39 @@
+#!/home/igor/playground/python/3.11.10/.venv/bin/python
+
+import sys
+import syslog
+import os
+from pydub import AudioSegment
+from pydub.playback import play
+from gradio_client import Client
+from httpx import ConnectError
+import subprocess
+
+
+def say(text):
+    try:
+        client = Client("http://127.0.0.1:7860/")
+        result = client.predict(
+            text=text,
+            api_name="/synthesize_speech",
+        )
+        wav_file = result[0]
+        song = AudioSegment.from_wav(wav_file)
+        play(song)
+        os.remove(wav_file)
+    except (ConnectError, IndexError):
+        subprocess.run(["espeak", "-v", "roa/es-419", text])
+        syslog.syslog(syslog.LOG_ERR, "[decimelo-server] Prende el servidor")
+    except Exception as e:
+        # syslog.syslog(syslog.LOG_ERR, "Whattt2")
+        print(e)
+        syslog.syslog(syslog.LOG_ERR, repr(e))
+
+
+if __name__ == "__main__":
+    try:
+        for text in sys.stdin:
+            say(text)
+    except KeyboardInterrupt:
+        sys.stdout.flush()
+        pass

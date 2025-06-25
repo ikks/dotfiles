@@ -112,7 +112,9 @@ exec ~/bin/switchbg
 # You have a mobile connected to the same Wifi :)
 exec kdeconnect-cli -l
 
-
+# Activate a voice server to say something from the clipboard with Mod4+i
+exec ~/bin/decimelo-server
+ 
 #
 # Status Bar:
 #

@@ -1,2 +1,2 @@
 #!/bin/bash
-source "$HOME/playground/python/3.11.10/.venv/bin/activate" && tts-server --model_name tts_models/es/mai/tacotron2-DDC
+cd $HOME/playground/python/spanish/tts/sample-tts-piper && $HOME/playground/python/3.11.10/.venv/bin/python app.py

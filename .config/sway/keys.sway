@@ -230,5 +230,8 @@ bindsym $mod+Question exec ~/bin/wl_show_keybindings
 #- Wifi network selection
 bindsym $mod+apostrophe exec ~/bin/nmcli-rofi
 
+#- Tell something from the clipboard
+bindsym $mod+i exec wl-paste | ~/bin/digo
+
 #- View video from the clipboard
 bindsym $mod+x exec ~/bin/viewvideo
