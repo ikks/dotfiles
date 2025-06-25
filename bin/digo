@@ -1,13 +1,17 @@
 #!/home/igor/playground/python/3.11.10/.venv/bin/python
 
 import sys
-import syslog
 import os
 from pydub import AudioSegment
 from pydub.playback import play
 from gradio_client import Client
 from httpx import ConnectError
 import subprocess
+import logging
+from logging.handlers import SysLogHandler
+
+logger = logging.getLogger("Logger")
+handler = SysLogHandler(address="/var/run/syslog")
 
 
 def say(text):
@@ -21,13 +25,11 @@ def say(text):
         song = AudioSegment.from_wav(wav_file)
         play(song)
         os.remove(wav_file)
-    except (ConnectError, IndexError):
+    except ConnectError:
         subprocess.run(["espeak", "-v", "roa/es-419", text])
-        syslog.syslog(syslog.LOG_ERR, "[decimelo-server] Prende el servidor")
+        logger.warning("[decimelo-server] Prende el servidor")
     except Exception as e:
-        # syslog.syslog(syslog.LOG_ERR, "Whattt2")
-        print(e)
-        syslog.syslog(syslog.LOG_ERR, repr(e))
+        logger.error(repr(e))
 
 
 if __name__ == "__main__":
@@ -36,4 +38,3 @@ if __name__ == "__main__":
             say(text)
     except KeyboardInterrupt:
         sys.stdout.flush()
-        pass
