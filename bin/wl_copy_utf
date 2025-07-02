@@ -1,0 +1,3 @@
+#!/bin/bash
+cat ~/.local/share/local/utf-chars.csv | fuzzel -d | gawk -F"|" '{printf $1}' | wl-paste
+

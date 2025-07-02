@@ -235,3 +235,6 @@ bindsym $mod+i exec wl-paste | ~/bin/digo
 
 #- View video from the clipboard
 bindsym $mod+x exec ~/bin/viewvideo
+
+#- Copy emojis to the clipboard 😍
+bindsym $mod+Shift+s exec ~/bin/wl_copy_utf
