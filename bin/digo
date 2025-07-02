@@ -1,4 +1,4 @@
-#!/home/igor/playground/python/3.11.10/.venv/bin/python
+#!/home/igor/playground/python/spanish/tts/piper/.venv/bin/python3
 
 import sys
 import os
@@ -33,6 +33,9 @@ def say(text):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        say(" ".join(sys.argv[1:]))
+        sys.exit(0)
     try:
         for text in sys.stdin:
             say(text)
