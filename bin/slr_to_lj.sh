@@ -8,7 +8,7 @@
 #
 # Take a look at https://www.openslr.org/72/ for further deatils
 # on the structure of the .zip file, that needs to contain a
-# LICENSE, a transcription line_index.tsv and the wav files 
+# LICENSE, a transcription line_index.tsv and the wav files
 #
 # Author: Igor Támara<igor.tamara@gmail.com>
 
@@ -20,7 +20,20 @@ usage: $0 file.zip
 This script creates a zip file with appropiate structure to train
 piper voices from an origin file from the openslr project.
 
-It will downsample the original files 
+Many wavs and a tsv with two columns, the first is the name of the
+wav file and the second is the transcription.
+
+The original files are downsampled to 22050 Hz.
+
+The resulting zip file is a valid contains a subdirectory wavs/
+with
+ * wav files downsampled to 22050 hz
+ * a LICENSE file
+ * a transcription for multivoice piper training
+ * a piper_voice.txt file for each voice with the transcription
+ for single voice piper training
+ * a melo_voice.txt file for each voice with the transcription for
+ melo training
 
 We require a .zip file downloaded from https://www.openslr.org/
 We will create a file.lj.zip file inside this same directory,
@@ -29,12 +42,11 @@ directory.  Download the zip file and run the script where the
 zip file was downloaded.  Please do it in a clean directory with
 only the downloaded zip file.
 
-The file expects an structure like the one in https://www.openslr.org/72/
-
 We will need you to have installed unzip, zip, gawk, fd and sox
 
-In Debian you can issue to make sure they are installed
+In Debian you can issue
  sudo apt install unzip gawk fd-find sox
+to install the required packages.
 
 EOF
 }
@@ -53,14 +65,21 @@ TMPDIR=`mktemp -d`
 echo Unpacking $1
 unzip $1 > /dev/null
 
-echo A total of `ls -l *wav | wc -l` wav files with `ls -l | gawk -F_ '{print $2}' | sort -u | grep 0 | wc -l` voices
+VOICES=`ls -lf *wav | grep wav | gawk '{print $9}' | gawk -F_ '{print $1"_"$2}' | sort -u | head`
+
+echo A total of `ls -l *wav | wc -l` wav files with `echo $VOICES | wc -w` voices
 
 mkdir -p wavs
 
-mv LICENSE wavs
-
 # lsj file Transcription
 sed -E 's/([a-z]+_[0-9]+)(_[0-9]+)\t(.*)$/wavs\/\1\2.wav|\1|\3/' line_index.tsv > wavs/_transcription.txt
+
+for i in $VOICES; do
+    grep $i wavs/_transcription.txt | gawk -F'|' '{print $1"|"$3}' > wavs/piper_"$i".txt
+    grep $i wavs/_transcription.txt  > wavs/melo_"$i".txt
+done
+exit 0
+mv LICENSE wavs
 
 # We use fd because we want to be able to parallelize the downsampling
 echo Down sampling to 22050 Hz
