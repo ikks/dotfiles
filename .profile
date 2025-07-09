@@ -51,3 +51,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 if [ "$DESKTOP_SESSION" = "sway" ]; then
     export $(gnome-keyring-daemon --start)
 fi
+
+# gettext with colorization for nontranslated and fuzzy messages
+# msgcat --color <file> | less -R
+export PO_STYLE=~/.local/share/gettext/styles/po-default.css
