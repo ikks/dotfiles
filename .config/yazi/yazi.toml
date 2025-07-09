@@ -1,1 +1,67 @@
-/home/igor/.config/yazi/yazi.toml
+[[plugin.prepend_previewers]]
+name = "*.tar*"
+run  = 'piper --format=url -- tar tf "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.sqlite3"
+run  = 'piper -- sqlite3 "$1" "select sql from sqlite_schema"'
+
+[[plugin.prepend_previewers]]
+name = "*.deb"
+run  = 'piper -- dpkg-deb -I "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.xlsx"
+run  = 'piper -- xlsx2csv "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.xlsm"
+run  = 'piper -- xlsx2csv "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.xls"
+run  = 'piper -- xls2csv "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.docx"
+run  = 'piper -- docx2txt < "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.doc"
+run  = 'piper -- antiword "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.odt"
+run  = 'piper -- odt2txt "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.ods"
+run  = 'piper -- odt2txt "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.ipynb"
+run  = 'piper -- rich "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.po"
+run  = 'piper -- msgcat --color "$1"'
+
+[[plugin.prepend_previewers]]
+name = "*.texi"
+run  = 'piper -- source-highlight --out-format=esc -i "$1" -o STDOUT'
+
+[[plugin.prepend_previewers]]
+name = "*.html"
+run  = 'piper -- w3m -dump "$1"'
+
+
+[opener]
+
+svgr = [
+	{ run = 'inkscape "$@"', desc = "Inkscape", orphan = true, for = "unix" },
+	]
+
+[open]
+prepend_rules = [
+  {name = "*.svg", use = [ "svgr" ] },
+]

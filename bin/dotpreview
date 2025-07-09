@@ -1,0 +1,32 @@
+#!/bin/bash
+#!/bin/bash
+# This script is given to Public Domain with no warranties
+#
+# This script allows you to preview graphically a dot file
+# Thanks to https://benweintraub.com/2022/11/12/graphviz-in-the-terminal/
+#
+# Author: Igor Támara<igor.tamara@gmail.com>
+
+usage () {
+cat << EOF
+
+usage: $0 file.dot
+
+This script allows you to preview a .dot file in your kitty
+terminal using vv.
+
+In Debian you can issue
+ sudo apt install graphviz
+to install dot.
+
+vv can be found at https://github.com/wolfpld/moderncore
+
+EOF
+}
+if [[ ! $# -eq 1 ]]; then
+  usage
+  exit 1
+fi
+
+cat $1 | dot -T svg > $FILE.svg && vv -G 000000 $FILE.svg && rm $FILE.svg
+# cat $1 | dot -Gmargin=0.7 '-Gbgcolor=#ffffff00' -Gcolor=black -Gfontcolor=white -Ncolor=white -Nfontcolor=white -Ecolor=white -T svg > $FILE.svg && vv -G 000000 $FILE.svg && rm $FILE.svg
