@@ -7,11 +7,33 @@
 // custom settings, run `zed: open default settings` from the
 // command palette
 {
+  "ssh_connections": [
+    {
+      "host": "ssh.lightning.ai",
+      "projects": [
+        {
+          "paths": [
+            "/teamspace/studios/this_studio/piper"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "ssh.kaggle",
+      "projects": [
+        {
+          "paths": [
+            "/kaggle/working"
+          ]
+        }
+      ]
+    }
+  ],
   "vim_mode": false,
   "agent": {
     "default_model": {
-      "provider": "google",
-      "model": "gemini-2.5-flash-preview-04-17"
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
     },
     "version": "2"
   },
@@ -26,15 +48,30 @@
     "edit_prediction_provider": "supermaven"
   },
   "file_types": {
-    "HTML": ["shtml", "wml"],
-    "Markdown": ["smd"],
-    "CSS": ["less"],
-    "JSON": ["jsonl"],
-    "Dockerfile": ["Dockerfile.*", "podfile", "dockerfile"]
+    "HTML": [
+      "shtml",
+      "wml"
+    ],
+    "Markdown": [
+      "smd"
+    ],
+    "CSS": [
+      "less"
+    ],
+    "JSON": [
+      "jsonl"
+    ],
+    "Dockerfile": [
+      "Dockerfile.*",
+      "podfile",
+      "dockerfile"
+    ]
   },
   "languages": {
     "HTML": {
-      "language_servers": ["superhtml"]
+      "language_servers": [
+        "superhtml"
+      ]
     }
   },
   "lsp": {
