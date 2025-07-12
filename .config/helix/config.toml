@@ -22,7 +22,7 @@ left = ["mode", "spinner", "version-control", "file-name"]
 [keys.select."+"]
 # Eliminar los caracteres al final
 r = ":pipe sed 's/[ \t]*$//'"
-# Wraplines a 90
+# Wraplines at 90
 w = ":pipe fmt -90"
 # Translate from English to Spanish locally
 e = ":pipe /home/igor/bin/traduce"
@@ -63,6 +63,35 @@ g = ":run-shell-command helixlazygitkitten"
 # clear screens
 c = ":run-shell-command clearothers"
 
+# latam keyboard, less shifting
+[keys.normal."{"]
+d = "goto_prev_diag"
+D = "goto_first_diag"
+g = "goto_prev_change"
+G = "goto_first_change"
+f = "goto_prev_function"
+t = "goto_prev_class"
+a = "goto_prev_parameter"
+c = "goto_prev_comment"
+e = "goto_prev_entry"
+T = "goto_prev_test"
+p = "goto_prev_paragraph"
+"space" = "add_newline_above"
+
+[keys.normal."}"]
+d = "goto_next_diag"
+D = "goto_last_diag"
+g = "goto_next_change"
+G = "goto_last_change"
+f = "goto_next_function"
+t = "goto_next_class"
+a = "goto_next_parameter"
+c = "goto_next_comment"
+e = "goto_next_entry"
+T = "goto_next_test"
+p = "goto_next_paragraph"
+"space" = "add_newline_below"
+
 [keys.normal.space]
 
 x = ":toggle whitespace.render all none"
@@ -70,6 +99,14 @@ x = ":toggle whitespace.render all none"
 [keys.normal]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
+C-g = [
+    ":write-all",
+    ":new",
+    ":insert-output lazygit",
+    ":buffer-close!",
+    ":redraw",
+    ":reload-all"
+]
 
 [keys.select]
 A-x = "extend_to_line_bounds"
