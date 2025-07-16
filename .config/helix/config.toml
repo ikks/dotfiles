@@ -2,10 +2,16 @@
 # Show currently open buffers, only when more than one exists.
 bufferline = "multiple"
 
+# Show diagnostics inline
+end-of-line-diagnostics = "hint"
+
 # Highlight all lines with a cursor
 cursorline = true
 
 rulers = [90, 140]
+
+# Easier movement
+line-number = "relative"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -18,6 +24,16 @@ render = true
 
 [editor.statusline]
 left = ["mode", "spinner", "version-control", "file-name"]
+
+[editor.soft-wrap]
+enable = true
+
+[editor.inline-diagnostics]
+# Minimum severity to show a diagnostic on the primary cursor's line.
+# Note that `cursor-line` diagnostics are hidden in insert mode.
+cursor-line = "error"
+# Minimum severity to show a diagnostic on other lines:
+# other-lines = "error"
 
 [keys.select."+"]
 # Eliminar los caracteres al final
