@@ -11,6 +11,10 @@ name = "*.deb"
 run  = 'piper -- dpkg-deb -I "$1"'
 
 [[plugin.prepend_previewers]]
+name = "*.md"
+run  = 'piper -- glow "$1"'
+
+[[plugin.prepend_previewers]]
 name = "*.xlsx"
 run  = 'piper -- xlsx2csv "$1"'
 
