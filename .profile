@@ -25,6 +25,12 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/Apps/bin" ] ; then
+    PATH="$HOME/Apps/bin:$PATH"
+fi
+
 . "$HOME/.cargo/env"
 
 # >>> juliaup initialize >>>
