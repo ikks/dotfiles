@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Translates from spanish to english using argostranslate-api,
+# it's expected a running servargos-translate locally
+# on port 8000
+#
+# No warranties
+#
+# Igor Támara
+#
+# To public domain
+# 
+# You can use this script as:
+#
+# echo "Aquí se habla español"  | translatewithargos
+
+
+SERVER="localhost"
+PORT=8000
+
+API_URL="http://$SERVER:$PORT/translate"
+
+function procesa() {
+  JSON_DATA='{"text" : "'$1'" , "from_lang" : "es" , "to_lang" : "en"}'
+  curl -s -X POST -H "Content-Type: application/json" -d "$JSON_DATA" "$API_URL" | jq -r '.translated_text'
+}
+
+while read -r line; do
+  procesa "$line"
+done

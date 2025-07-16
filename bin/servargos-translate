@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# This script launches an argos-api server that allows
+# to have translations locally in under 300ms with CPU
+#
+# See also traduceconargos to translate from english to
+# spanish and translatewithargos that translates from
+# spanish to english.
+#
+# uv pip install argos-api , tested with python 12
+# environment.
+#
+# No warranties, use at your own risk
+#
+# Igor Támara
+#
+# To public domain
+# 
+
+cd ~/playground/translation/argos-api/ && source ~/playground/python/3.12/.venv/bin/activate && fastapi run
