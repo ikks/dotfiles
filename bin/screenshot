@@ -1,11 +1,70 @@
 #!/bin/env bash
+# 
+# MIT LICENSE
+#
+# Allows you to take a screenshot in Wayland,
+# stores the screenshot and filename in the clipboard
+# 
+# Requires grim, satty notify-send and wl-copy
+#
+# Author: Igor Támara<igor.tamara@gmail.com>
+#
 
-icon="/home/igor/.local/share/icons/fectp.png"
-out_dir="/home/igor/Pictures/Screenshots/"
-dateTime=screenshot-"$(date +%Y-%m-%d-%H%M%S)".png
 
-filename="$out_dir""$dateTime"
-grim -g "$(slurp)" "$filename"
-notify-send -h string:wf-recorder:record -t 1000 -i $icon "Screenshooted" "$filename"
-echo "$filename" | wl-copy
-cat "$filename" | wl-copy
+NOTIFICATION_ICON="$HOME/.local/share/icons/fectp.png"
+OUT_DIR="$HOME/Pictures/Screenshots/"
+FILENAME="$OUT_DIR"screenshot-$(date +%Y-%m-%d-%H%M%S).png
+AN_FN="$OUT_DIR"screensnot-$(date +%Y-%m-%d-%H%M%S)-annotated.png
+SATTY="$HOME/bin/satty"
+
+usage () {
+cat << EOF
+Usage: $0 [-f] [-a]
+Screenshot in Wayland
+
+  -a    Once screenshoted, you can annotate the screenshot
+  -f    Fullscreen, no selection made
+  -?,-h This help
+
+
+EOF
+}
+
+while getopts "fa" opt; do
+    case "$opt" in
+    h|\?)
+        usage
+        exit 0
+        ;;
+    a)  ANNOTATE=1
+        ;;
+    f)  FAST=1
+        ;;
+    esac
+done
+
+echo $FILENAME
+
+if [[ -v $FAST ]]; then
+  grim "$FILENAME"
+else
+  GEOMETRY=$(slurp)
+  if [[ ! $GEOMETRY ]]; then
+    # No selection, no screenshot
+    exit 1
+  fi
+    grim -g "$GEOMETRY" "$FILENAME"
+fi
+
+echo "$FILENAME" | wl-copy
+cat "$FILENAME" | wl-copy
+
+if [[ -v $ANNOTATE ]]; then
+  if [[ $($SATTY --filename "$FILENAME" -o "$AN_FN") ]]; then
+    # The user needs to save with Ctrl-s
+    echo "$AN_FN" | wl-copy
+    cat "$AN_FN" | wl-copy
+  fi;
+else
+  notify-send -h string:wf-recorder:record -t 1000 -i $NOTIFICATION_ICON "Screenshooted" "$FILENAME" &
+fi

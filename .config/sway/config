@@ -51,9 +51,12 @@ input "FTE1200:00 0B05:0701 Touchpad" {
 
 include keys.sway
 
+# Set cursor theme
+# seat seat0 xcursor_theme "Oxygen Yellow"
 
 # Open automatically apps in a given workspace
 assign [app_id="brave-browser"] workspace 1
+assign [app_id="firefox"] workspace 1
 assign [app_id="first-kitty"] workspace 2
 assign [app_id="help-resources"] workspace 3
 assign [title="Telegram"] workspace 4
@@ -78,6 +81,7 @@ for_window {
   [app_id="org.gnome.Settings"] $popup
   [app_id="yad"] $popup
   [title="nsxiv"] $popup
+  [app_id="python-console.py"] $popup
   [class="Ddd" instance=".*_popup"] $popup
   [class="Ddd" instance="init_shell"] $popup
   [window_role="bubble"] $popup
@@ -96,7 +100,7 @@ exec swayidle -w \
          before-sleep 'swaylock -f -c 000000'
 
 # Default applications
-exec brave-browser --enable-features=UseOzonePlatform --ozone-platform=wayland
+exec firefox
 exec $term --class "first-kitty" -o "enabled_layouts=fat,stack" --session ~/.config/kitty/sessions/zig.ks
 exec $term --class "worker-kitty" -o "remember_window_size=no" -o "background_opacity=0.8" -o "initial_window_width=130c" -o "initial_window_height=30c" tmux new-session \; split-window -h \; split-window -v \; new-window "cd ~/Music && termusic ." \; new-window \; attach
 
@@ -113,7 +117,7 @@ exec ~/bin/switchbg
 exec kdeconnect-cli -l
 
 # Activate a voice server to say something from the clipboard with Mod4+i
-exec ~/bin/decimelo-server
+# exec ~/bin/decimelo-server
  
 #
 # Status Bar:

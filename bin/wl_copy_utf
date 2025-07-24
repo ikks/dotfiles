@@ -1,3 +1,22 @@
 #!/bin/bash
-cat ~/.local/share/local/utf-chars.csv | fuzzel -d | gawk -F"|" '{printf $1}' | wl-copy
+#
+# This script is given to Public Domain with no warranties
+#
+# Allows you to copy to the primary clipboard an emoji from
+# a list of emojis stored in a file that describes them
+#
+# The format of the file is a csv separated by pipes like
+# utf-emoji-code|description :
+#
+# 🏆|emoji description
+# 📜|scroll papiro
+# 
+# Requires fuzzel, gawk and wl-copy
+#
+# Author: Igor Támara<igor.tamara@gmail.com>
+#
+
+EMOJI_STORE=~/.local/share/local/utf-chars.csv
+
+cat $EMOJI_STORE | fuzzel -d | gawk -F"|" '{printf $1}' | wl-copy
 

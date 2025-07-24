@@ -61,3 +61,6 @@ fi
 # gettext with colorization for nontranslated and fuzzy messages
 # msgcat --color <file> | less -R
 export PO_STYLE=~/.local/share/gettext/styles/po-default.css
+
+# No telemetry for dotnet
+export DOTNET_CLI_TELEMETRY_OPTOUT=1

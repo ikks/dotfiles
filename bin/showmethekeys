@@ -1,9 +1,19 @@
 #!/bin/env bash
+#
+# MIT License
+#
+# Toggles showing the keys pressed in Wayland
+#
+# Requires wshowkeys
+#
+# Author: Igor Támara<igor.tamara@gmail.com>
 
-program=wshowkeys
-if pgrep -x "$program"; then
-  pkill $program
+
+PROGRAM=~/bin/wshowkeys
+NAME=$(basename $PROGRAM)
+if pgrep -x "$NAME" >/dev/null; then
+  pkill $NAME
   exit 0
 fi
 
-~/bin/$program &
+$PROGRAM &

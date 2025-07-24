@@ -1,4 +1,10 @@
 #!/bin/bash
 #
-# Shows keybindings for Sway
+# Shows keybindings for Sway , requires that
+# the file ~/.config/sway/keys.sway to be commented
+# with the shortcuts like
+#
+# #- Close current window
+# bindsym $mod+BackSpace kill
+
 ~/bin/extractshortcutswayhelp.py | sed 's%^\s*%%;s%^bindsym %%;s%--locked %%' | grep -v -i "^# " | fuzzel -d

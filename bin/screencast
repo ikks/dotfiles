@@ -1,27 +1,82 @@
 #!/bin/env bash
+#
+# MIT License
+#
+# Allows you to make a screencasting and showing pressed keys
+# in Wayland selecting an area,
+# stores the resulting filename in the clipboard. To stop, run
+# again this script.  Offers visual and audible indications
+# when starting
+#
+# Requires pgrep, pkill, notify-send, wf-recorder, slurp,
+# wl-copy, wshowkeys and play
+#
+# Author: Igor Támara<igor.tamara@gmail.com>
 
-icon="/home/igor/.local/share/icons/fectp.png"
-out_dir="/home/igor/Videos/Screencasts/"
+OUT_DIR="$HOME/Videos/Screencasts/"
+NOTIFICATION_ICON="$HOME/.local/share/icons/fectp.png"
+AUDIO="-a"
 
-if pgrep -x "wf-recorder"; then
+usage () {
+cat << EOF
+Usage: $0 [-k] [-a]
+Screencast in Wayland
+
+  -k    show keyboard strokes
+  -a    avoid audio capture
+
+Starts and stops screencasting on Wayland, by defautl capturing
+mic audio, you can optionally show the keyboard strokes
+
+When launched, select the area to be recorded, once finished,
+it will store the video under $_OUT_DIR
+
+EOF
+}
+
+while getopts "ka" opt; do
+    case "$opt" in
+    h|\?)
+        usage
+        exit 0
+        ;;
+    a)  verbose=1
+        AUDIO=""
+        ;;
+    k)  verbose=1
+        WITH_KEYS=1
+        ;;
+    esac
+done
+
+
+if pgrep -x "wf-recorder" > /dev/null; then
+  if [[ -v $WITH_KEYS ]]; then
+    killall wshowkeys
+  fi
   pkill -INT -x wf-recorder
-  filename="$out_dir""$(ls -tr "$out_dir" | tail -1)"
-  echo "$filename" | wl-copy
-  notify-send -i "$icon" -h string:wf-recorder:record -t 1000 "Finished Recording" "$filename"
+  FILENAME="$OUT_DIR""$(ls -tr "$OUT_DIR" | tail -1)"
+  echo "$FILENAME" | wl-copy
+  notify-send -i "$NOTIFICATION_ICON" -h string:wf-recorder:record -t 1000 "Finished Recording" "$FILENAME"
   exit 0
 fi
 
-nn=$(notify-send -i $icon -p -h string:wf-recorder:record -t 3000 "Recording in:" "   3")
+SELECTED_AREA=$(slurp)
+NN=$(notify-send -i $NOTIFICATION_ICON -p -h string:wf-recorder:record -t 3000 "Recording in:" "   3")
 
-sleep 1 && notify-send -i $icon -h string:wf-recorder:record -r "$nn" "Recording in:" "   2"
+sleep 1 && notify-send -i $NOTIFICATION_ICON -h string:wf-recorder:record -r "$NN" "Recording in:" "   2"
 play /usr/share/sounds/freedesktop/stereo/bell.oga
 
-sleep 1 && notify-send -i $icon -h string:wf-recorder:record -t 800 -r "$nn" "Recording in:" "   1"
+sleep 1 && notify-send -i $NOTIFICATION_ICON -h string:wf-recorder:record -t 800 -r "$NN" "Recording in:" "   1"
 play /usr/share/sounds/freedesktop/stereo/bell.oga
 
 sleep 1
 play /usr/share/sounds/freedesktop/stereo/bell.oga
 
-dateTime=screencast-$(date +%Y-%m-%d-%H%M%S)
+DATETIME=screencast-$(date +%Y-%m-%d-%H%M%S)
 
-wf-recorder --bframes max_b_frames -a -f "$HOME"/Videos/Screencasts/"$dateTime".mp4 -g "$(slurp)" &
+wf-recorder --bframes max_b_frames $AUDIO -f "$HOME"/Videos/Screencasts/"$DATETIME".mp4 -g "$SELECTED_AREA" &
+
+if [[ -v $WITH_KEYS ]]; then
+  ~/bin/showmethekeys &
+fi

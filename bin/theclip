@@ -1,3 +1,15 @@
 #!/bin/env bash
+#
+# This script is given to Public Domain with no warranties
+#
+# Shows history of primary clipboard and pastes the selected
+# option
+#
+# Requires fuzzel and cliphist to work
+#
+# Author: Igor Támara<igor.tamara@gmail.com>
 
-/home/igor/go/bin/cliphist list | wofi -d -G | cliphist decode | tee | wl-copy
+
+CLIPHIST=$HOME/go/bin/cliphist
+
+$CLIPHIST list | fuzzel -d | $CLIPHIST decode | tee | wl-copy

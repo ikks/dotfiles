@@ -206,16 +206,16 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym Print exec ~/bin/screenshot
 
 #- Screenshot edit
-bindsym Shift+Print exec ~/bin/screenshot-annotated
+bindsym Shift+Print exec ~/bin/screenshot -a
 
 #- Fullscreen screenshot
-bindsym Ctrl+Print exec ~/bin/screenshot-fullscreen
+bindsym Ctrl+Print exec ~/bin/screenshot -f
 
 #- Screencast recording
 bindsym $mod+Print exec ~/bin/screencast
 
-#- Screencast showing keys
-bindsym $mod+Shift+Print exec ~/bin/screencast-withkeys
+#- Screencast recording with keys
+bindsym $mod+Shift+Print exec ~/bin/screencast -k
 
 #- Paste from Clipboard including images
 bindsym $mod+Shift+v exec ~/bin/theclip

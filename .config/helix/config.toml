@@ -38,8 +38,8 @@ cursor-line = "error"
 [keys.select."+"]
 # Eliminar los caracteres al final
 r = ":pipe sed 's/[ \t]*$//'"
-# Wraplines at 90
-w = ":pipe fmt -90"
+# Wraplines at 72
+w = ":pipe fmt -72"
 # Translate from English to Spanish locally
 e = ":pipe /home/igor/bin/traduce"
 # Translate from Spanish to English locally
@@ -66,16 +66,14 @@ v = ":pipe /home/igor/bin/conjugatercera"
 s = ":pipe espasacalvesynonims.sh"
 # Eliminar los caracteres al final
 r = ":pipe sed 's/[ \t]*$//'"
-# Wraplines a 90
-w = ":pipe fmt -90"
+# Wraplines a 72
+w = ":pipe fmt -72"
 # Insert from the clipboard
 "+" = ":insert-output cliphist list | wofi --dmenu | cliphist decode"
 # Build zig
 z = ":run-shell-command zigbuilder"
 # Build test
 t = ":run-shell-command zigbuildertest"
-# Lazygit
-g = ":run-shell-command helixlazygitkitten"
 # clear screens
 c = ":run-shell-command clearothers"
 
@@ -122,6 +120,15 @@ C-g = [
     ":buffer-close!",
     ":redraw",
     ":reload-all"
+]
+# Yazi to find and open files
+# See https://github.com/helix-editor/helix/discussions/12934
+C-y = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
 ]
 
 [keys.select]

@@ -16,7 +16,7 @@
 
 
 SERVER="localhost"
-PORT=8000
+PORT=7001
 
 API_URL="http://$SERVER:$PORT/translate"
 

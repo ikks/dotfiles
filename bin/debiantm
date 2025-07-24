@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+# This script is given to Public Domain with no warranties
+#
+# This script shows previous translations from Debian Compendia
+# pot file.
+#
+# Download latest compendia for your language from
+# https://i18n.debian.org/compendia/
+#
+# Author: Igor Támara<igor.tamara@gmail.com>
+
+usage () {
+cat << EOF
+
+usage: $0 "term to search"
+
+Shows previous translations of the term in your
+DEBIAN_COMPENDIA.
+
+Your current DEBIAN_COMPENDIA is:
+$DEBIAN_COMPENDIA
+
+Download the latest compendia for your language from
+https://i18n.debian.org/compendia/
+
+Requires sed, gum and grep
+
+EOF
+}
+
+if [[ ! -v DEBIAN_COMPENDIA ]]; then
+  gum log -l error Please set your DEBIAN_COMPENDIA variable
+  usage
+  exit 1
+fi
+if [[ ! $# -eq 1 ]]; then
+  gum log -l error Please provide a term to search for
+  usage
+  exit 1
+fi
+
+(echo "--" ; (cat $DEBIAN_COMPENDIA | grep -v '^#' | grep -i -A 10 "\s$1\s")) | sed -n '/--/,/^$/p' | sed 's/^#[\.|\:|\,].*$//;s/^[\#\~ ]*msgid //;s/^[\#\~ ]*msgstr \"//;s/^[\#\~ ]*\"//;s/\"$//' | sed '$!N;/^\n$/!P;D'

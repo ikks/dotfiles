@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# To public domain
+# 
 # This script launches an argos-api server that allows
 # to have translations locally in under 300ms with CPU
 #
@@ -14,7 +16,11 @@
 #
 # Igor Támara
 #
-# To public domain
 # 
 
-cd ~/playground/translation/argos-api/ && source ~/playground/python/3.12/.venv/bin/activate && fastapi run
+ARGOS_HOME=~/playground/translation/argos-api/
+VENV=~/playground/python/3.12
+PORT=7001
+
+cd $ARGOS_HOME && source $VENV/.venv/bin/activate && fastapi run --port $PORT
+
