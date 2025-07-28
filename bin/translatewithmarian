@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Translates from english to spanish using marian and opus
+# it's expected that a servopustmmarian is running locally
+# on port 7002
+#
+# No warranties
+# 
+# Igor Támara
+#
+# To public domain
+# 
+# You can use this script as:
+#
+# echo "this will be translated to spanish"  | translatewithmarian
+
+SERVER="localhost"
+PORT=7002
+
+API_URL="http://$SERVER:$PORT/api/translate"
+
+function procesa() {
+  JSON_DATA='{"source" : "'$1'" , "from" : "en", "to": "es"}'
+  curl -s "$API_URL" -X POST -H 'Content-Type: application/json' -d "$JSON_DATA"  | jq -r '.translation'
+}
+
+input="-"
+entrada=$(cat "$input")
+procesa "$entrada"

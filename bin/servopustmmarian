@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# To public domain
+# 
+# This script launches an opusmariantranslation server
+# that offers translations locally with really good quality
+#
+# See translatewithmarian to translate from english to
+# spanish using this server
+#
+# Tested with python 3.11
+# 
+# No warranties, use at your own risk
+#
+# Igor Támara
+#
+# 
+
+PYTHON=~/playground/python/translation/Opus-MT/.venv/bin/python
+OPUS_HOME=~/playground/python/translation/Opus-MT/
+PORT=7002
+
+cd $OPUS_HOME && $PYTHON server.py -p $PORT
+
