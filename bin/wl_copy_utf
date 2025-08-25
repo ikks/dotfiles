@@ -15,6 +15,7 @@
 #
 # Author: Igor Támara<igor.tamara@gmail.com>
 #
+# You can use utf command to look for emojis locally
 
 EMOJI_STORE=~/.local/share/local/utf-chars.csv
 

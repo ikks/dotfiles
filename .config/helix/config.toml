@@ -7,8 +7,9 @@ end-of-line-diagnostics = "hint"
 
 # Highlight all lines with a cursor
 cursorline = true
+cursorcolumn = true
 
-rulers = [90, 140]
+rulers = [72, 90, 140]
 
 # Easier movement
 line-number = "relative"
@@ -24,6 +25,7 @@ render = true
 
 [editor.statusline]
 left = ["mode", "spinner", "version-control", "file-name"]
+right = ["diagnostics", "selections", "register", "position", "position-percentage", "file-encoding"]
 
 [editor.soft-wrap]
 enable = true
@@ -76,6 +78,9 @@ z = ":run-shell-command zigbuilder"
 t = ":run-shell-command zigbuildertest"
 # clear screens
 c = ":run-shell-command clearothers"
+# compile the po buffer
+m = ":run-shell-command msgfmt -v -c %{buffer_name}"
+
 
 # latam keyboard, less shifting
 [keys.normal."{"]
@@ -113,6 +118,8 @@ x = ":toggle whitespace.render all none"
 [keys.normal]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
+
+# Lazygit
 C-g = [
     ":write-all",
     ":new",
@@ -121,6 +128,16 @@ C-g = [
     ":redraw",
     ":reload-all"
 ]
+
+# Better to have a second terminal and move to it with Cmd-l...
+# Aspell current file
+# C-a = [
+#     ":write-all",
+#     ":run-shell-command aspell -c %{buffer_name}",
+#     ":redraw",
+#     ":reload-all"
+# ]
+
 # Yazi to find and open files
 # See https://github.com/helix-editor/helix/discussions/12934
 C-y = [
@@ -134,3 +151,12 @@ C-y = [
 [keys.select]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
+
+[editor.auto-pairs]
+  '(' = ')'
+  '{' = '}'
+  '[' = ']'
+  '"' = '"'
+  '`' = '`'
+  '<' = '>'
+  '«' = '»'

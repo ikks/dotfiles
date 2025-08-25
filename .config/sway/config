@@ -11,8 +11,11 @@ set {
     $term kitty
     $menu fuzzel
     $apps $term --class="launcher" -o "background_opacity=0.6" -e ~/bin/sway-launcher-desktop.sh
-    $popup floating enable
+    # Styles
     $always_here floating enable; sticky enable ; move position 800 px 100 px
+    $launcher floating enable; sticky enable; resize set 30 ppt 40 ppt; border pixel 3
+    $pad floating enable,  move position 150 px 75 px, move to scratchpad
+    $popup floating enable
 }
 default_border none
 gaps inner 2
@@ -59,38 +62,43 @@ assign [app_id="brave-browser"] workspace 1
 assign [app_id="firefox"] workspace 1
 assign [app_id="first-kitty"] workspace 2
 assign [app_id="help-resources"] workspace 3
-assign [title="Telegram"] workspace 4
+assign [app_id="libreoffice-calc"] workspace 3
+assign [app_id="libreoffice-impress"] workspace 3
+assign [app_id="libreoffice-writer"] workspace 3
+assign [app_id="soffice"] workspace 3
 assign [class="discord"] workspace 4
+assign [title="Telegram"] workspace 4
 workspace_layout tabbed
 
 # Use default constrains for certain windows
 for_window {
-  [app_id="worker-kitty"] floating enable,  move position 150 px 75 px, move to scratchpad 
-  [app_id="xdg-desktop-portal-gnome"] $popup
-  [app_id="org.gnome.clocks"] $popup
-  [app_id="org.gnome.Weather"] $popup
-  [app_id="org.gnome.Calculator"] $popup
-  [app_id="org.gnome.SoundRecorder"] $popup
   [app_id="blueman-manager"] $popup
-  [app_id="wdisplays"] $popup
-  [app_id="xfce4-appfinder"] $popup
-  [app_id="nm-connection-editor"] $popup
-  [app_id="wev"] $popup
   [app_id="imv"] $popup
-  [app_id="pavucontrol"] $popup
+  [app_id="launcher"] $launcher
+  [app_id="metadata-viewer"] $popup
+  [app_id="mpv"] $always_here
+  [app_id="nm-connection-editor"] $popup
+  [app_id="org.gnome.Calculator"] $popup
   [app_id="org.gnome.Settings"] $popup
-  [app_id="yad"] $popup
-  [title="nsxiv"] $popup
+  [app_id="org.gnome.SoundRecorder"] $popup
+  [app_id="org.gnome.Weather"] $popup
+  [app_id="org.gnome.clocks"] $popup
+  [app_id="pavucontrol"] $popup
   [app_id="python-console.py"] $popup
+  [app_id="soffice"] $popup
+  [app_id="wdisplays"] $popup
+  [app_id="wev"] $popup
+  [app_id="worker-kitty"] $pad
+  [app_id="xdg-desktop-portal-gnome"] $popup
+  [app_id="xfce4-appfinder"] $popup
+  [app_id="yad"] $popup
   [class="Ddd" instance=".*_popup"] $popup
   [class="Ddd" instance="init_shell"] $popup
+  [title="nsxiv"] $popup
   [window_role="bubble"] $popup
-  [window_role="pop-up"] $popup
   [window_role="dialog"] $popup
+  [window_role="pop-up"] $popup
   [window_type="dialog"] $popup
-  [app_id="soffice"] $popup
-  [app_id="mpv"] $always_here
-  [app_id="launcher"] floating enable; sticky enable; resize set 30 ppt 40 ppt; border pixel 3
 }
 
 # Sleep mode with lock

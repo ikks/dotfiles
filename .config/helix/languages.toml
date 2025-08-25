@@ -28,9 +28,15 @@ LOG_FILE = "/tmp/completion.log"
 name = "rst"
 language-servers = ["/home/igor/playground/python/3.13/.venv/bin/esbonio"]
 
+[language-server.python-ty]
+command = "uvx"
+args = ["ty", "server"]
+
+
 [[language]]
 name = "python"
 language-servers = ["pylsp", "scls", "ruff"]
+# language-servers  = ["python-ty"]
 auto-format = true
 formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
 
@@ -68,6 +74,10 @@ formatter = { command = "css-beautify" }
 [language-server.superhtml-lsp]
 command = "superhtml"
 args = ["lsp"]
+
+[[language]]
+name = "xml"
+file-types = ["xml", "xcu"]
 
 [[language]]
 name = "html"

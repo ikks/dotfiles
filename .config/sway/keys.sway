@@ -238,3 +238,6 @@ bindsym $mod+x exec ~/bin/viewvideo
 
 #- Copy emojis to the clipboard 😍
 bindsym $mod+Shift+s exec ~/bin/wl_copy_utf
+
+#- Help please
+bindsym $mod+Shift+h exec $term --class="launcher" -o "background_opacity=0.6" -e less ~/personal/repos/dotfiles/HOWTO.md
