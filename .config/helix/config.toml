@@ -96,6 +96,10 @@ e = "goto_prev_entry"
 T = "goto_prev_test"
 p = "goto_prev_paragraph"
 "space" = "add_newline_above"
+# Next untranslated string
+u = "@?\"\"\\n\\n<ret>"
+# Next fuzzy string
+z = "@?#, fuzzy<ret>"
 
 [keys.normal."}"]
 d = "goto_next_diag"
@@ -110,6 +114,12 @@ e = "goto_next_entry"
 T = "goto_next_test"
 p = "goto_next_paragraph"
 "space" = "add_newline_below"
+# Previous untranslated string
+u = "@/\"\"\\n\\n<ret>"
+# Previous fuzzy string
+z = "@/#, fuzzy<ret>"
+
+
 
 [keys.normal.space]
 
