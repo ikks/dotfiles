@@ -126,26 +126,10 @@ exec kdeconnect-cli -l
 
 # Activate a voice server to say something from the clipboard with Mod4+i
 # exec ~/bin/decimelo-server
- 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-# bar {
-#     position bottom
-#     mode hide
 
-#     # When the status_command prints a new line to stdout, swaybar updates.
-#     # The default just shows the current date and time.
-#     status_command ~/bin/swaystatus
-#     # status_command while cat /sys/class/power_supply/BAT0/capacity ; do sleep 1; done
-#     colors {
-#         statusline #ffffff
-#         background #323232
-#         inactive_workspace #32323200 #32323200 #5c5c5c
-#     }
-# }
-# 
+# Please let me know about battery
+exec ~/bin/battery_status_alert
+ 
 bar {
     swaybar_command waybar
     hidden_state hide

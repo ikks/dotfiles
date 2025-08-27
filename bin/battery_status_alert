@@ -1,0 +1,33 @@
+#!/bin/bash
+# Low battery notifier
+#
+# Requires notify-send grep digo
+# No warranties
+# 
+# Igor Támara
+#
+# To public domain
+
+SCRIPT=$(basename $0)
+
+ALREADY_RUNNING=$(ps -fC 'grep' -N | grep "$SCRIPT" | wc -l)
+if [[ $ALREADY_RUNNING -gt 1 ]]; then
+	pkill -f --older 1 "$SCRIPT"
+fi
+
+BATTERY="/sys/class/power_supply/BAT0"
+BATTERY_ICON=/usr/share/openclipart/svg/computer/icons/flat-theme/action/laptop_nobattery.svg
+LOWER_LIMIT=8
+MS_TO_SHOW=1500
+
+while [[ 0 -eq 0 ]]; do
+	BATTERY_STATUS="$(cat $BATTERY/status)"
+	BATTERY_CHARGE="$(cat $BATTERY/capacity)"
+	if [[ $BATTERY_STATUS == 'Discharging' && $BATTERY_CHARGE -le $LOWER_LIMIT ]]; then
+			digo "la batería está por agotarse" >/dev/null 2>&1 & sleep 2
+			notify-send --icon="$BATTERY_ICON" --urgency=critical -t $MS_TO_SHOW "¡Pilas!: $BATTERY_CHARGE%" "Se acaba la batería"
+			sleep 180
+	else
+		sleep 600
+	fi
+done
