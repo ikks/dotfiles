@@ -27,7 +27,11 @@ def say(text):
         os.remove(wav_file)
     except ConnectError:
         subprocess.run(["espeak", "-v", "roa/es-419", text])
-        logger.warning("[decimelo-server] Prende el servidor")
+        logger.warning(
+            "[decimelo-server] Prendiendo la voz humana, las próximas veces se escuchará"
+        )
+        subprocess.Popen(["decimelo-server"])
+        sys.exit(0)
     except Exception as e:
         logger.error(repr(e))
 
