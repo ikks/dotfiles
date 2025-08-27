@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Translates english <-> spanish using kotki,
+# it's expected that a kotki-web is running locally
+# and on port 7000, if it's not the case, starts
+# the server
+#
+# No warranties
+# 
+# Igor Támara
+#
+# To public domain
+# 
+# You can use this script as:
+#
+# echo "this will be translated to spanish"  | translatewithkotki
+# echo "Así se traduce al español con kotki"  | traduceconkotki
+
+SERVER="localhost"
+PORT=7000
+
+API_URL="http://$SERVER:$PORT/api/1/translate"
+
+CURRENT_PROGRAM=$(basename $0)
+
+if [ "translatewithkotki" == "$CURRENT_PROGRAM" ] ;then
+  TR="enes"
+else
+  TR="esen"
+fi
+
+function procesa() {
+  JSON_DATA='{"translate" : "'$1'" , "model" : "'${TR}'"}'
+  TRANSLATION=$(curl -s "$API_URL" -X POST -H "Content-Type: application/json" -d "$JSON_DATA" | jq -r '.translate')
+  if [ -z "$TRANSLATION" ]; then
+    return 0
+  else
+    echo $TRANSLATION
+    return 1
+  fi
+}
+
+input="-"
+entrada=$(cat "$input")
+if procesa "$entrada" ; then
+  nohup kotki-web >/dev/null 2>&1 & 
+  sleep 1; procesa "$entrada"
+fi
+
