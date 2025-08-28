@@ -21,7 +21,14 @@ API_URL="http://$SERVER:$PORT/api/translate"
 
 function procesa() {
   JSON_DATA='{"source" : "'$1'" , "from" : "en", "to": "es"}'
-  curl -s "$API_URL" -X POST -H 'Content-Type: application/json' -d "$JSON_DATA"  | jq -r '.translation'
+  TRANSLATION=$(curl -s "$API_URL" -X POST -H 'Content-Type: application/json' -d "$JSON_DATA"  | jq -r '.translation')
+  if [ -z "$TRANSLATION" ]; then
+    echo Make sure to start the server: servopustmmarian
+    return 0
+  else
+    echo $TRANSLATION
+    return 1
+  fi
 }
 
 input="-"

@@ -43,6 +43,7 @@ function procesa() {
 input="-"
 entrada=$(cat "$input")
 if procesa "$entrada" ; then
+  logger "[🌐] Starting kotki-web for translating"
   nohup kotki-web >/dev/null 2>&1 & 
   sleep 1; procesa "$entrada"
 fi

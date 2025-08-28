@@ -1,2 +1,14 @@
 #!/bin/bash
-cd $HOME/playground/python/spanish/tts/sample-tts-piper && $HOME/playground/python/spanish/tts/piper/.venv/bin/python3 app.py
+#!/bin/bash
+
+# Starts a piper server to offer read aloud texts
+# Use digo to make use of it
+#  
+# No warranties
+# 
+# Igor Támara
+#
+# To public domain
+
+ 
+cd $HOME/playground/python/spanish/tts/sample-tts-piper && $HOME/playground/python/spanish/tts/piper/.venv/bin/python3 piper-web.py

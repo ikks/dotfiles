@@ -1,39 +1,43 @@
 #!/home/igor/playground/python/spanish/tts/piper/.venv/bin/python3
+#
+# Uses piper to read a text aloud
+#
+# No warranties
+#
+# Igor Támara
+#
+# To public domain
+#
 
-import sys
 import os
-from pydub import AudioSegment
-from pydub.playback import play
+import simpleaudio as sa
+import subprocess
+import sys
+import syslog
 from gradio_client import Client
 from httpx import ConnectError
-import subprocess
-import logging
-from logging.handlers import SysLogHandler
-
-logger = logging.getLogger("Logger")
-handler = SysLogHandler(address="/var/run/syslog")
 
 
 def say(text):
     try:
-        client = Client("http://127.0.0.1:7860/")
+        client = Client("http://127.0.0.1:7860/", verbose=False)
         result = client.predict(
             text=text,
             api_name="/synthesize_speech",
         )
         wav_file = result[0]
-        song = AudioSegment.from_wav(wav_file)
-        play(song)
+        wave_obj = sa.WaveObject.from_wave_file(wav_file)
+        play_obj = wave_obj.play()
+        play_obj.wait_done()
         os.remove(wav_file)
+        syslog.syslog("this one")
     except ConnectError:
         subprocess.run(["espeak", "-v", "roa/es-419", text])
-        logger.warning(
-            "[decimelo-server] Prendiendo la voz humana, las próximas veces se escuchará"
-        )
-        subprocess.Popen(["decimelo-server"])
+        syslog.syslog("[🗣️] Prendiendo decimelo-server, las próximas veces se escuchará")
+        subprocess.Popen(["decimelo-server"], stdout=subprocess.DEVNULL)
         sys.exit(0)
     except Exception as e:
-        logger.error(repr(e))
+        syslog.syslog(syslog.LOG_ERR, repr(e))
 
 
 if __name__ == "__main__":
