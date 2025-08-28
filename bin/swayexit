@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Closes a way session killing services that could
+# have started automatically
+#
+# No warranties
+# 
+# Igor Támara
+#
+# To public domain
+# 
+
+pkill kotki-web
+pkill -f "python3 piper-web.py"
+pkill decimelo-server
+
+swaymsg exit

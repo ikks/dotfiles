@@ -32,7 +32,7 @@ bindsym $mod+Shift+c reload
 
 
 #- Close session
-bindsym $mod+Shift+e exec swaymsg exit
+bindsym $mod+Shift+e exec swayexit
 #
 # Moving around:
 #
