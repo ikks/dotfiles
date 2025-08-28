@@ -64,3 +64,6 @@ export PO_STYLE=~/.local/share/gettext/styles/po-default.css
 
 # No telemetry for dotnet
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# Make fuzzel and .desktop entries work
+export TERMINAL=/home/igor/bin/kitty
