@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Kitten to print the current list of keyboard shortcuts (consists of BOTH single keys and key
 sequences).
+From https://github.com/kovidgoyal/kitty/issues/2164#issuecomment-2566950824
 """
 
 import re
