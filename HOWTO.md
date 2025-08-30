@@ -7,7 +7,7 @@ W-S-H        This help
 C-G          CLI Recipes
 
 
-
+C-S-ñ        Kitty Help
 
 
 q            Exit
