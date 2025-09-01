@@ -53,6 +53,12 @@ s = ":pipe espasacalvesynonims.sh"
 # Leer algo en español
 d = ":pipe /home/igor/bin/leeme"
 
+[keys.normal."-"]
+# run tests on current buffer with pytest
+t = [":write", ":! pytest %{buffer_name}"]
+# run the current python buffer
+p = [":write", ":! python %{buffer_name}"]
+
 [keys.normal."+"]
 # Translate from English to Spanish with Internet
 E = ":pipe trans -b en:es"
