@@ -1,0 +1,9 @@
+{
+  "editorPath": "/home/igor/bin/kitty",
+  "cmdArgs": [
+    "--class=filechooser",
+    "-o",
+    "background_opacity=0.8",
+    "hx"
+  ]
+}

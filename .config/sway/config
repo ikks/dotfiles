@@ -14,7 +14,8 @@ set {
     # Styles
     $always_here floating enable; sticky enable ; move position 800 px 100 px
     $launcher floating enable; sticky enable; resize set 30 ppt 40 ppt; border pixel 3
-    $pad floating enable,  move position 150 px 75 px, move to scratchpad
+    $filechooser floating enable; resize set 96 ppt 70 ppt; border pixel 4
+    $pad floating enable;  move position 150 px 75 px; move to scratchpad
     $popup floating enable
 }
 default_border none
@@ -75,6 +76,7 @@ for_window {
   [app_id="blueman-manager"] $popup
   [app_id="imv"] $popup
   [app_id="launcher"] $launcher
+  [app_id="filechooser"] $filechooser
   [app_id="metadata-viewer"] $popup
   [app_id="mpv"] $always_here
   [app_id="nm-connection-editor"] $popup
@@ -94,6 +96,7 @@ for_window {
   [app_id="yad"] $popup
   [class="Ddd" instance=".*_popup"] $popup
   [class="Ddd" instance="init_shell"] $popup
+  [class="terminal-file-chooser"] $popup
   [title="nsxiv"] $popup
   [window_role="bubble"] $popup
   [window_role="dialog"] $popup
