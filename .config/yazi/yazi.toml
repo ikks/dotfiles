@@ -1,3 +1,9 @@
+[mgr]
+
+ratio = [2,3,6]
+show_hidden = true
+show_symlink = true
+
 [[plugin.prepend_previewers]]
 name = "*.tar*"
 run  = 'piper --format=url -- tar tf "$1"'
