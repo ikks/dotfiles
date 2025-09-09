@@ -58,6 +58,14 @@ d = ":pipe /home/igor/bin/leeme"
 t = [":write", ":! pytest %{buffer_name}"]
 # run the current python buffer
 p = [":write", ":! python %{buffer_name}"]
+# make
+m = ":! make"
+# make install
+i = ":! make install"
+# Build with uv
+b = ":! uv build"
+# Debian wml compile and show in browser
+w = [":run-shell-command make && xdg-open `pwd`/$(echo %{buffer_name} | sed 's/wml/es.html/g')"]
 
 [keys.normal."+"]
 # Translate from English to Spanish with Internet
