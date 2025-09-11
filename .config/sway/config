@@ -66,6 +66,7 @@ assign [app_id="help-resources"] workspace 3
 assign [app_id="libreoffice-calc"] workspace 3
 assign [app_id="libreoffice-impress"] workspace 3
 assign [app_id="libreoffice-writer"] workspace 3
+assign [app_id="libreoffice-startcenter"] workspace 3
 assign [app_id="soffice"] workspace 3
 assign [class="discord"] workspace 4
 assign [title="Telegram"] workspace 4
@@ -132,6 +133,8 @@ exec kdeconnect-cli -l
 
 # Please let me know about battery
 exec ~/bin/battery_status_alert
+
+exec swayosd-server
  
 bar {
     swaybar_command waybar
