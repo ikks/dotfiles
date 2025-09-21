@@ -1,3 +1,18 @@
+# This configuration works with two patches to ease navigation code:
+# Context like breadcrumbs on demand
+#
+# [remote "breadcrumb"]
+#       url = https://github.com/FulecoRafa/helix.git
+#       fetch = +refs/heads/*:refs/remotes/breadcrumb/*
+#
+# Sticky context
+#
+# [remote "stickycontext"]
+#       url = https://github.com/SoraTenshi/helix.git
+#       fetch = +refs/heads/*:refs/remotes/stickycontext/*
+#
+# Also has support for rainbow
+
 [editor]
 # Show currently open buffers, only when more than one exists.
 bufferline = "multiple"
@@ -13,6 +28,9 @@ rulers = [72, 90, 140]
 
 # Easier movement
 line-number = "relative"
+
+# Rainbow brackets
+rainbow-brackets = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -62,8 +80,16 @@ p = [":write", ":! python %{buffer_name}"]
 m = ":! make"
 # make install
 i = ":! make install"
+# make run
+r = ":! make run"
+# make clean
+c = ":! make clean"
 # Build with uv
 b = ":! uv build"
+# uv run
+v = [":write",":! uv run %{buffer_name}"]
+# Reset diff change
+u = ":reset-diff-change"
 # Debian wml compile and show in browser
 w = [":run-shell-command make && xdg-open `pwd`/$(echo %{buffer_name} | sed 's/wml/es.html/g')"]
 
@@ -94,7 +120,8 @@ t = ":run-shell-command zigbuildertest"
 c = ":run-shell-command clearothers"
 # compile the po buffer
 m = ":run-shell-command msgfmt -v -c %{buffer_name}"
-
+# edit emoji file
+u = ":open /home/igor/.local/share/local/utf-chars.csv"
 
 # latam keyboard, less shifting
 [keys.normal."{"]
@@ -134,14 +161,22 @@ u = "@/\"\"\\n\\n<ret>"
 z = "@/#, fuzzy<ret>"
 
 
-
 [keys.normal.space]
 
 x = ":toggle whitespace.render all none"
+t = ":tree-sitter-breadcrumbs"
+
+# VCS operations
+[keys.normal.space."v"]
+# Blame the current line
+b = ":! git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"
+v = ":! git status"
+
 
 [keys.normal]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
+
 
 # Lazygit
 C-g = [
@@ -153,6 +188,7 @@ C-g = [
     ":reload-all"
 ]
 
+
 # Better to have a second terminal and move to it with Cmd-l...
 # Aspell current file
 # C-a = [
@@ -161,6 +197,7 @@ C-g = [
 #     ":redraw",
 #     ":reload-all"
 # ]
+
 
 # Yazi to find and open files
 # See https://github.com/helix-editor/helix/discussions/12934
@@ -172,9 +209,11 @@ C-y = [
   ':redraw',
 ]
 
+
 [keys.select]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
+
 
 [editor.auto-pairs]
   '(' = ')'
@@ -184,3 +223,9 @@ X = ["extend_line_up", "extend_to_line_bounds"]
   '`' = '`'
   '<' = '>'
   '«' = '»'
+
+
+[editor.sticky-context]
+enable = false
+indicator = true
+max-lines = 10
