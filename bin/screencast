@@ -62,6 +62,10 @@ if pgrep -x "wf-recorder" > /dev/null; then
 fi
 
 SELECTED_AREA=$(slurp)
+if [[ ! $GEOMETRY ]]; then
+  # No selection, no screencast
+  exit 1
+fi
 NN=$(notify-send -i $NOTIFICATION_ICON -p -h string:wf-recorder:record -t 3000 "Recording in:" "   3")
 
 sleep 1 && notify-send -i $NOTIFICATION_ICON -h string:wf-recorder:record -r "$NN" "Recording in:" "   2"

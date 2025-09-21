@@ -6,10 +6,15 @@
 #
 # Requires wshowkeys
 #
+# And setuid this file with
+#
+# chown root:igor wshowkeys
+# chmod +s wshowkeys
+#
 # Author: Igor Támara<igor.tamara@gmail.com>
 
 
-PROGRAM=~/bin/wshowkeys
+PROGRAM=~/Apps/bin/wshowkeys
 NAME=$(basename $PROGRAM)
 if pgrep -x "$NAME" >/dev/null; then
   pkill $NAME
