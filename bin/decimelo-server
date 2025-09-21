@@ -1,7 +1,8 @@
 #!/bin/bash
-#!/bin/bash
 
 # Starts a piper server to offer read aloud texts
+# https://github.com/OHF-Voice/piper1-gpl/
+# 
 # Use digo to make use of it
 #  
 # No warranties
@@ -11,4 +12,4 @@
 # To public domain
 
  
-cd $HOME/playground/python/spanish/tts/sample-tts-piper && $HOME/playground/python/spanish/tts/piper/.venv/bin/python3 piper-web.py
+cd $HOME/playground/python/spanish/tts/sample-tts-piper && $HOME/playground/python/3.13/.venv/bin/python3 -m piper.http_server --port 7040 -m es_AR-daniela-high

@@ -1,51 +1,42 @@
-#!/home/igor/playground/python/spanish/tts/piper/.venv/bin/python3
+#!/bin/bash
 #
 # Uses piper to read a text aloud
-#
+# https://github.com/OHF-Voice/piper1-gpl/
 # No warranties
 #
 # Igor Támara
 #
 # To public domain
+# 
+# You can use this script as:
 #
+# echo "la voz de Daniela en argentino"  | digo
 
-import os
-import simpleaudio as sa
-import subprocess
-import sys
-import syslog
-from gradio_client import Client
-from httpx import ConnectError
+SERVER="localhost"
+PORT=7040
+
+API_URL="http://$SERVER:$PORT/"
 
 
-def say(text):
-    try:
-        client = Client("http://127.0.0.1:7860/", verbose=False)
-        result = client.predict(
-            text=text,
-            api_name="/synthesize_speech",
-        )
-        wav_file = result[0]
-        wave_obj = sa.WaveObject.from_wave_file(wav_file)
-        play_obj = wave_obj.play()
-        play_obj.wait_done()
-        os.remove(wav_file)
-        syslog.syslog("this one")
-    except ConnectError:
-        subprocess.run(["espeak", "-v", "roa/es-419", text])
-        syslog.syslog("[🗣️] Prendiendo decimelo-server, las próximas veces se escuchará")
-        subprocess.Popen(["decimelo-server"], stdout=subprocess.DEVNULL)
-        sys.exit(0)
-    except Exception as e:
-        syslog.syslog(syslog.LOG_ERR, repr(e))
+function procesa() {
+  JSON_DATA='{"text" : "'$1'" }'
+  WAV_FILE=$(mktemp).wav
+  TRANSLATION=$(curl -s -X POST -H "Content-Type: application/json" -d "$JSON_DATA" -o "$WAV_FILE" "$API_URL")
+  if [ $TRANSLATION ]; then
+    rm $WAV_FILE
+    return 0
+  else
+    play -q $WAV_FILE 2>/dev/null
+    rm $WAV_FILE
+    return 1
+  fi
+}
 
+input="-"
+entrada=$(cat "$input")
+if procesa "$entrada" ; then
+  logger "[🌐] Starting decimelo-server"
+  nohup decimelo-server >/dev/null 2>&1 & 
+  sleep 4; procesa "$entrada"
+fi
 
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        say(" ".join(sys.argv[1:]))
-        sys.exit(0)
-    try:
-        for text in sys.stdin:
-            say(text)
-    except KeyboardInterrupt:
-        sys.stdout.flush()
