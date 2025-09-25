@@ -19,7 +19,6 @@ kitty_mod+page_down    [38:2:255:0:0m→[39m scroll_page_down
 kitty_mod+home         [38:2:255:0:0m→[39m scroll_home
 kitty_mod+end          [38:2:255:0:0m→[39m scroll_end
 kitty_mod+z            [38:2:255:0:0m→[39m scroll_to_prompt -1
-kitty_mod+x            [38:2:255:0:0m→[39m scroll_to_prompt 1
 kitty_mod+h            [38:2:255:0:0m→[39m show_scrollback
 kitty_mod+g            [38:2:255:0:0m→[39m show_last_command_output
 
@@ -69,6 +68,7 @@ kitty_mod+v            [38:2:255:0:0m→[39m paste_from_clipboard
 kitty_mod+s            [38:2:255:0:0m→[39m paste_from_selection
 shift+insert           [38:2:255:0:0m→[39m paste_from_selection
 kitty_mod+o            [38:2:255:0:0m→[39m pass_selection_to_program
+kitty_mod+x            [38:2:255:0:0m→[39m kitten kitty_grab/grab.py
 kitty_mod+n            [38:2:255:0:0m→[39m neighboring_window down
 kitty_mod+=            [38:2:255:0:0m→[39m change_font_size all +2.0
 kitty_mod++            [38:2:255:0:0m→[39m change_font_size all +2.0
