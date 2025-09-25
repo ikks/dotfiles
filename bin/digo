@@ -23,7 +23,7 @@ function procesa() {
   WAV_FILE=$(mktemp).wav
   TRANSLATION=$(curl -s -X POST -H "Content-Type: application/json" -d "$JSON_DATA" -o "$WAV_FILE" "$API_URL")
   if [ $TRANSLATION ]; then
-    rm $WAV_FILE
+    rm -f $WAV_FILE
     return 0
   else
     play -q $WAV_FILE 2>/dev/null
