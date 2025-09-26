@@ -61,7 +61,7 @@ r = ":pipe sed 's/[ \t]*$//'"
 # Wraplines at 72
 w = ":pipe fmt -72"
 # Translate from English to Spanish locally
-e = ":pipe /home/igor/bin/traduce"
+e = ":pipe /home/igor/bin/translatewithkotki"
 # Translate from Spanish to English locally
 i = ":pipe /home/igor/bin/tran"
 # Switch infinitive to third person
@@ -72,6 +72,7 @@ s = ":pipe espasacalvesynonims.sh"
 d = ":pipe /home/igor/bin/leeme"
 
 [keys.normal."-"]
+e = ":pipe /home/igor/bin/translatewithkotki"
 # run tests on current buffer with pytest
 t = [":write", ":! pytest %{buffer_name}"]
 # run the current python buffer
@@ -99,7 +100,7 @@ E = ":pipe trans -b en:es"
 # Traducir de español a inglés con Internet
 I = ":pipe trans -b es:en"
 # Translate from English to Spanish locally
-e = ":pipe /home/igor/bin/traduce"
+e = ":pipe /home/igor/bin/translatewithkotki"
 # Traducir de español a inglés localmente
 i = ":pipe /home/igor/bin/tran"
 # Switch infinitive to third person
@@ -169,9 +170,11 @@ t = ":tree-sitter-breadcrumbs"
 # VCS operations
 [keys.normal.space."v"]
 # Blame the current line
-b = ":! git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"
+b = ":! git blame --date=relative -L %{cursor_line},%{cursor_line} %{buffer_name}"
+# Blame the current_buffer
+B = [':noop $sh{git blame --date=relative "%{buffer_name}" > /tmp/hx.blame}', ":rla", ":o /tmp/hx.blame"]
+h = ":! git log %{buffer_name}"
 v = ":! git status"
-
 
 [keys.normal]
 A-x = "extend_to_line_bounds"

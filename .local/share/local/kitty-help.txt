@@ -97,9 +97,9 @@ kitty_mod+a > d        [38:2:255:0:0m→[39m set_background_opacity default
 kitty_mod+delete       [38:2:255:0:0m→[39m clear_terminal reset active
 kitty_mod+f5           [38:2:255:0:0m→[39m load_config_file
 kitty_mod+f6           [38:2:255:0:0m→[39m debug_config
-ctrl+shift+{           [38:2:255:0:0m→[39m neighboring_window left
-ctrl+shift+}           [38:2:255:0:0m→[39m neighboring_window right
-ctrl+shift+i           [38:2:255:0:0m→[39m neighboring_window up
-ctrl+shift+ñ           [38:2:255:0:0m→[39m kitten help.py
+kitty_mod+{            [38:2:255:0:0m→[39m neighboring_window left
+kitty_mod+}            [38:2:255:0:0m→[39m neighboring_window right
+kitty_mod+i            [38:2:255:0:0m→[39m neighboring_window up
+kitty_mod+ñ            [38:2:255:0:0m→[39m kitten help.py
 
 file:///home/igor/.local/kitty.app/share/doc/kitty/html/overview.html#other-keyboard-shortcuts
