@@ -172,7 +172,7 @@ t = ":tree-sitter-breadcrumbs"
 # Blame the current line
 b = ":! git blame --date=relative -L %{cursor_line},%{cursor_line} %{buffer_name}"
 # Blame the current_buffer
-B = [':noop $sh{git blame --date=relative "%{buffer_name}" > /tmp/hx.blame}', ":rla", ":o /tmp/hx.blame"]
+B = [':! %sh{git blame --date=relative "%{buffer_name}" > /tmp/hx.blame}', ":rla", ":o /tmp/hx.blame"]
 h = ":! git log %{buffer_name}"
 v = ":! git status"
 
